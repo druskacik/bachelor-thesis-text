@@ -1,0 +1,104 @@
+\documentclass[a4paper,12pt]{article}
+
+%PACKAGES
+
+\usepackage[utf8]{inputenc}
+\usepackage[slovak]{babel}
+\usepackage{comment}
+
+
+\usepackage{graphicx,amsmath,amssymb, amsthm, multicol}
+\usepackage{pdfpages}
+
+\usepackage[nottoc]{tocbibind}
+\usepackage{mathrsfs}
+\usepackage{psfrag}
+\usepackage[small,bf]{caption}
+\usepackage{ifthen}
+
+\newtheorem{defin}{Definícia}[section]
+\newtheorem{thm}[defin]{Veta}
+\newtheorem{prop}[defin]{Tvrdenie}
+\newtheorem{lema}[defin]{Lema}
+\newtheorem{cor}[defin]{Dôsledok}
+\newtheoremstyle{comment}{}{}{}{}{}{:}{ }{#1}
+\theoremstyle{comment}
+\newtheorem{com}{\textit{Poznámka}}
+
+\usepackage{hyperref}                                     
+\hypersetup{%  http://www.tug.org/applications/hyperref/
+bookmarksnumbered,
+pdfstartview={FitH},
+linkcolor=black,
+citecolor=black,
+colorlinks=true,
+pdfpagemode={None},
+plainpages=false
+}%
+
+%%\usepackage{fullpage}
+%%\setlength{\topmargin}{-0.5cm}
+%%\setlength{\headheight}{0cm}
+%%\setlength{\headsep}{0in}
+\setlength{\textheight}{24cm}
+\setlength{\textwidth}{15.5cm}
+\addtolength{\voffset}{-1.2cm}
+\addtolength{\hoffset}{-0.3cm}
+%%\addtolength{\rightmargin}{-1cm}
+\setlength{\parindent}{0.5cm}
+\setlength{\parskip}{0in}
+\linespread{1.5}
+
+
+
+\begin{document}
+
+  \input{Titulka}
+
+  \input{Thesis_info}
+
+  \includepdf[pages={1}, offset=25 -75]{zadanieRD.pdf}
+
+  \input{Podakovanie}
+
+  \input{Abstrakt}
+
+  \input{Abstract}
+  \newpage \tableofcontents
+  \setcounter{page}{7}
+ % \newpage
+ % \listoffigures
+ % \newpage
+ % \listoftables  
+ % \newpage
+ % \section*{Zoznam použitých symbolov} 
+ %   \input{ZoznamPouzitychSymbolov}
+ %   \addcontentsline{toc}{section}{Zoznam použitých symbolov}
+  \newpage
+
+    \section*{Úvod}	          
+    \markboth{ÚVOD}{ÚVOD}  
+    \addcontentsline{toc}{section}{Úvod}
+    
+    \input{Uvod} 
+	\input{kap1} 
+	\input{kap2} 
+
+	\newpage
+  \section*{Záver}
+    \addcontentsline{toc}{section}{Záver}
+    \markboth{ZÁVER}{ZÁVER} 
+    \input{Zaver}
+  
+  \renewcommand{\refname}{Zoznam použitej literatúry}
+  \include{Literatura}
+  
+	\newpage
+  \appendix
+  \section*{Príloha A} 
+    \addcontentsline{toc}{section}{Príloha A}
+    \markboth{Príloha A}{Príloha A}
+    \input{AppendixA}
+    %\begin{comment}
+%\end{comment}
+\end{document}
