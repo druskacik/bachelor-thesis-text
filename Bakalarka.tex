@@ -53,54 +53,51 @@ plainpages=false
 
 \begin{document}
 
-  \input{Titulka}
+  \input{01 Titulka}
 
-  \input{Thesis_info}
+  \input{02 Thesis_info}
 
   \includepdf[pages={1}, offset=25 -75]{zadanieRD.pdf}
 
-  \input{Podakovanie}
+  \input{03 Podakovanie}
 
   \newpage
-  \input{Abstrakt}
+  \input{04 Abstrakt}
 
   \newpage
-  \input{Abstract}
+  \input{05 Abstract}
   \newpage \tableofcontents
   \setcounter{page}{7}
  % \newpage
  % \listoffigures
  % \newpage
  % \listoftables  
- % \newpage
- % \section*{Zoznam použitých symbolov} 
- %   \input{ZoznamPouzitychSymbolov}
- %   \addcontentsline{toc}{section}{Zoznam použitých symbolov}
   \newpage
 
     \section*{Úvod}	          
     \markboth{ÚVOD}{ÚVOD}  
     \addcontentsline{toc}{section}{Úvod}
     
-    \input{Uvod} 
-	\input{kap1} 
-	\input{kap2} 
+    \input{06 Uvod} 
+	\input{07 kap1} 
+	\input{08 kap2} 
 
 	\newpage
   \section*{Záver}
     \addcontentsline{toc}{section}{Záver}
     \markboth{ZÁVER}{ZÁVER} 
-    \input{Zaver}
+    \input{09 Zaver}
   
+  \newpage
   \renewcommand{\refname}{Zoznam použitej literatúry}
-  \include{Literatura}
+  \input{10 Literatura}
   
 	\newpage
   \appendix
   \section*{Príloha A} 
     \addcontentsline{toc}{section}{Príloha A}
     \markboth{Príloha A}{Príloha A}
-    \input{AppendixA}
+    \input{11 AppendixA}
     %\begin{comment}
 %\end{comment}
 \end{document}
