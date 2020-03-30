@@ -1,1 +1,98 @@
-\section{...}
+\section{Môj model}
+\label{my model}
+
+Cieľom tejto práce je skúmať experiment reprezentovaný binárnou maticou.
+Možná reprezentácia nášho modelu pri matici rozmeru $m \times n$ je takáto:
+
+Uvažujeme model s dvomi kvalitatívnymi faktormi $A$ a $B$, 
+pričom faktor $A$ má $m$ úrovní a faktor $B$ $n$ úrovní. 
+Pre každú kombináciu faktorov experimentátor zvolí jedno z dvojice ošetrení (angl. treatment).
+Budeme uvažovať len aditívny model bez interakcií.
+
+(Harmanov text == TODO: prepísať)Napríklad faktor $A$ môže označovať dobrovoľníka (t.j. máme $m$ dobrovoľníkov) 
+a faktor $B$ účinnú látku, ktorú nazveme liečivo (t.j. máme $n$ liečiv). 
+Ošetrenie $0$ reprezentuje podanie liečiva orálnym spôsobom a ošetrenie $1$ vnútrožilne).
+Účinok, ktorý po čase nameriame na dobrovoľníkovi, 
+závisí aditívne od efektu samotného dobrovoľníka (jeho predispozícií), 
+efektu liečiva a efektu ošetrenia. 
+Všetky tieto efekty uvažujeme ako neznáme parametere modelu.
+
+Návrh teda možno reprezentovať binárnou maticou 
+(alebo bipartitným grafom, čo opíšeme neskoršie vnašej práci).
+
+Cieľom experimentu je odhadnúť rozdiel medzi dvoma efektmi (treamentami).
+Cieľom hľadania optimálneho modelu je nájsť taký návrh, pri ktorom
+rozptyl Gauss-Markovovho odhadu rozdielu medzi efektmi dvojice ošetrení (t.j. odhadu kontrastu ošetrení) bude čo najmenší.
+(Použijeme pri tom Gaussovu-Markovovu vetu z predošlej kapitoly.)
+
+Pre maticu typu $m \times n$ dostaneme teda $mn$ vzťahov tvaru:
+
+\begin{center}
+$
+y_{ij} = a_i + b_j + t + e_{ij}
+$
+\end{center}
+
+$i = 1, \ldots, m$; $j = 1, \ldots, n$; $t$ je $t_0$ alebo $t_1$ podľa hodnoty na $ij$-tej pozícii matice a $e_{ij}$ je chyba.
+Budeme odhadovať rozdiel medzi $t_0$ a $t_1$.
+
+Z návrhu modelu v podobe binárnej matice tvaru $m \times n$ vytvoríme lineárny regresný model
+s maticou tvaru $mn \times (m + n + 2)$, pretože máme $mn$ meraní závislých od $m + n + 2$ premenných.
+
+Príklad:
+
+Maticu návrhu experimentu
+
+\begin{align}
+\label{model matrix}
+\begin{bmatrix}
+1 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 1
+\end{bmatrix}
+\end{align}
+
+prepíšeme ako (TODO: popíš tými strapatými zátvorkami čo znamená čo):
+
+\begin{align}
+\label{linear regression matrix}
+\begin{bmatrix}
+1 & 0 & 0 & 1 & 0 & 0 & 1 & 0 \\
+1 & 0 & 0 & 0 & 1 & 0 & 0 & 1 \\
+1 & 0 & 0 & 0 & 0 & 1 & 1 & 0 \\
+0 & 1 & 0 & 1 & 0 & 0 & 0 & 1 \\
+0 & 1 & 0 & 0 & 1 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 & 0 & 1 & 0 & 1 \\
+0 & 0 & 1 & 1 & 0 & 0 & 1 & 0 \\
+0 & 0 & 1 & 0 & 1 & 0 & 0 & 1 \\
+0 & 0 & 1 & 0 & 0 & 1 & 1 & 0
+\end{bmatrix}
+\end{align}
+
+Označme vo všeobecnosti maticu modelu (\ref{model matrix}) $B$ a maticu lineárneho zobrazenia (\ref{linear regression matrix}) $X$. 
+Predpokladáme lineárne vzťahy, preto dostávame lineárnu regresiu
+
+\begin{center}
+$
+y = X b + e
+$
+\end{center}
+
+kde $y$ je vektor dát nameraných v experimente, $b$ je vektor neznámych koeficientov a 
+$e = (e_{11}, e_{12}, e_{13}, \ldots, e_{m1}, \dots, e_{mn})^T$ je vektor chýb merania. 
+Uvedomme si, že v našej práci nebudeme pracovať s konkrétnym vektorom $y$; 
+snažíme sa totiž navrhnúť maticu modelu $B$ (a z nej vyplývajúcu maticu $X$) ešte pred tým, než experiment vykonáme.
+
+Naším cieľom teraz bude odhadnúť rozdiel medzi efektmi $t_0$ a $t_1$, resp. zistiť, 
+aká môže byť disperzia tohto odhadu pri danej matici návrhu $B$. 
+Modely, pre ktoré bude možná disperzia najmenšia, budeme považovať za optimálne.
+
+V danej lineárnej regresii $y = X b + e$ teda nebudeme odhadovať celý vektor $b$, 
+ale len jeho lineárnu kombináciu $h^T b$, kde $h$ je vektor rozmeru $m + n + 2$, 
+ktorý má na $m + n$ miestach $0$ a na zvyšných dvoch miestach $+1$ a $-1$, ktoré zodpovedajú efektom $t_0$ a $t_1$. 
+Z algoritmu, ktorým sme z matice návrhu $B$ vytvorili maticu lineárnej regresie $X$, 
+vyplýva, že vektor $h$ má tvar $(0, 0, 0, \ldots, +1, -1)^T$.
+
+Na zistenie, či $h^T b$ je odhadnuteľné, použijeme vetu (\ref{veta1}), 
+a na následné nájdenie minimálneho rozptylu Gauss-Markovovho odhadu rozdielu medzi efektmi 
+použijeme Gaussovu-Markovovu vetu (\ref{gauss-markov}).

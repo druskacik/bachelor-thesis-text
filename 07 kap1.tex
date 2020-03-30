@@ -94,6 +94,7 @@ Je niekoľko ekvivalentných podmienok, ktoré stačia na to, aby $h^T b$ bolo o
 Z nich spomenieme jednu v nasledovnej vete, ktorú použijeme neskôr v našej práci.
 
 \begin{theorem}
+\label{veta1}
 $h^T b$ je odhadnuteľné, ak plati nasledovné ekvivaltentné podmienky:
 \begin{enumerate}
   \item pre ľubovoľné riešenia $b^*$ a $b^{**}$ rovnice (\ref{least squares solution}) platí $h^T b^* = h^T b^{**}$
@@ -126,6 +127,7 @@ K nájdeniu optimálneho modelu $X$ nám poslúži Gaussova-Markovova veta,
 ktorá určuje minimálnu možnú disperziu odhadu $h^T b$.
 
 \begin{theorem}
+\label{gauss-markov}
 (Gaussova-Markovova) Nech $h$ je z riadkového priestoru $X$. 
 Potom minimálna možná disperzia lineárneho nevychýleného odhadu $h^T b$ je
 
@@ -137,3 +139,14 @@ $
 
 kde $M = X^T X$ je informačná matica parametra $b$ a $M^-$ je jej ľubovoľná $g$-inverzia.
 \end{theorem}
+
+\subsection{Metodika skúmania}
+
+Cieľom nášho skúmania bude nájsť ideálnu maticu vstupu do experimentu (konkrétny problém popíšeme v nasledujúcej kapitole). 
+Pokúsime sa vysloviť závery pre všeobecný prípad matice $m \times n$,
+avšak pre istý prvotný náhľad do problematiky problém popíšeme a preskúmame na menších rozmeroch, 
+konkrétne do rozmeru, do ktorého nám to umožní výpočtová technika. Pracovať budeme s programovacím jazykom \textit{python}.
+
+Od „preskúmania situácie“ do istého rozmeru si sľubujeme dôležité náhľady, 
+ktoré nám umožnia vysloviť závery a hypotézy pre všeobecný prípad $m \times n$. 
+Tie sa následne pokúsime dokázať matematickými metódami.
