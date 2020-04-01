@@ -96,3 +96,61 @@ vyplýva, že vektor $h$ má tvar $(0, 0, 0, \ldots, +1, -1)^T$.
 Na zistenie, či $h^T b$ je odhadnuteľné, použijeme vetu (\ref{veta1}), 
 a na následné nájdenie minimálneho rozptylu Gauss-Markovovho odhadu rozdielu medzi efektmi 
 použijeme Gaussovu-Markovovu vetu (\ref{gauss-markov}).
+
+\subsection{Odhadnuteľnosť $h^T b$}
+
+Pokúsime sa preskúmať, kedy matica návrhu umožňuje odhadnuteľnosť hodnoty $h^T b$ pre vyššie spomenuté $h$. 
+Situáciu preskúmame do rozmeru $4 \times 5$ a na základe našich zistení vyslovíme hypotézu pre všeobecný prípad $m \times n$.
+
+Postupovať budeme nasledovne: vyberieme si malý rozmer a pre všetky matice daného rozmeru zistíme, 
+či $h^T b$ bude alebo nebude odhadnuteľné, a to nasledovným spôsobom. 
+Z danej matice návrhu $B$ vytvoríme maticu lineárnej regresie $X$ spôsobom spomenutým vyššie. 
+Hodnota $h^T b$ bude na základe vety (\ref{veta1}) odhadnuteľná práve vtedy, 
+keď vektor $h = (0, 0, 0, \ldots, +1, -1)^T$ patrí do stĺpcového priestoru matice $X^T X$.
+
+Označme $M = X^T X$, túto maticu budeme nazývať informačnou maticou. 
+Ak $h$ patrí do stĺpcového priestoru $M$, potom existuje taký vektor $v$, že $M v = h$. 
+Na základe vety (\ref{veta3}) vieme, že ak toto riešenie existuje, tak sa rovná $M^- h$, pričom zvolená $g$-inverzia môže byť ľubovoľná.
+Preto na zistenie, či $h$ patrí do stĺpcového priestoru $M = X^T X$ stačí overiť platnosť rovnosti $M(M^- h) = h$. 
+
+Demonštrujme algoritmus na maticiach rozmeru $3 \times 3$. Existuje $2^9 = 512$ binárnych matíc typu $3 \times 3$, 
+a keď sme na nich rozbehli daný algoritmus, dospeli sme k zisteniu, že pri $12$ z nich hodnota $h^T b$ NIE JE odhadnuteľná.
+To znamená, že optimálne matice návrhu budeme hľadať v zvyšných $500$ maticiach.
+
+Ako vyzerajú matice, pri ktorých $h^T b$ nie je odhadnuteľné? Zoznam všetkých sa nachádza v Prílohe A, tu uvedieme $3$ z nich:
+
+\begin{center}
+$
+\begin{bmatrix}
+1 & 1 & 1 \\
+0 & 0 & 0 \\
+1 & 1 & 1 \\
+\end{bmatrix}
+$, 
+$
+\begin{bmatrix}
+0 & 0 & 1 \\
+0 & 0 & 1 \\
+0 & 0 & 1 \\
+\end{bmatrix}
+$, 
+$
+\begin{bmatrix}
+0 & 0 & 0 \\
+0 & 0 & 0 \\
+0 & 0 & 0 \\
+\end{bmatrix}
+$
+\end{center}
+
+Týmto spôsobom sme pri našom výskume získali zoznam matíc, pri ktorých $h^T b$ nie je odhadnuteľné, až do rozmeru $4 \times 5$.
+Zoznam všetkých sa nachádza v GitHub repozitári spomenutom v úvode. 
+Na základe podobnosti matíc daného typu sme prišli s nasledovnou hypotézou.
+
+\begin{hypoteza}
+$h^T b$ je odhadnuteľné práve vtedy, keď v matici návrhu $B$ má každý riadok a každý stĺpec aspoň jednu $0$ a aspoň jednu $1$
+\end{hypoteza}
+
+\begin{dokaz}
+TODO
+\end{dokaz}

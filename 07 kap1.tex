@@ -104,9 +104,8 @@ $h^T b$ je odhadnuteľné, ak plati nasledovné ekvivaltentné podmienky:
 kde $\mathcal{M}$ označuje stĺpcový priestor matice.
 \end{theorem}
 
-Ak $h$ patrí do riadkového priestoru matice $X$, potom existuje také $u$, že $h = F^T u$.
+Ak $h$ patrí do riadkového priestoru matice $X$, potom existuje také $u$, že $h = X^T u$.
 Potom pre jednoznačný odhad $h^T \hat{b}$ vektora $h^T b$ platí:
-% hTÔ = uTFÔ = uTPy = uT F(FTCF)^-FTCy
 
 \begin{center}
 $h^T \hat{b} = u^T X \hat{b} = u^T P y = u^T X(X^T X)^- X^T y$
@@ -139,6 +138,37 @@ $
 
 kde $M = X^T X$ je informačná matica parametra $b$ a $M^-$ je jej ľubovoľná $g$-inverzia.
 \end{theorem}
+
+\subsection{Maticová príprava}
+
+V našej práci budeme často pracovať s poznatkami z lineárnej algebry, preto v krátkosti zhrnieme niektoré najdôležitejšie z nich.
+
+\begin{defin}
+Nech $A$ je ľubovoľná matica. Potom matica $A^-$ taká, že
+\begin{center}
+$A A^- A = A$
+\end{center}
+sa nazýva $g$-inverzia (alebo pseudoinverzia) matice $A$.
+\end{defin}
+
+\begin{com}
+Ak $A^{-1}$ neexistuje, tak pre maticu $A$ existuje nekonečný počet $g$-inverzií.
+\end{com}
+
+Pseudoinverzie použijeme neskôr v našej práci, keď budeme skúmať, 
+či vektor patrí do stĺpcového priestoru matice. Na to nám poslúži nasledovná veta.
+
+\begin{theorem}
+\label{veta3}
+Nech rovnica $Ax = y$ má riešenie a nech $A^-$ je ľubovolná $g$-inverzia. Potom $A^- y$ je riešením tejto rovnice.
+\end{theorem}
+
+\begin{dokaz}
+Keďže $Ax = y$ má riešenie, tak existuje take $x_0$, že $A x_0 = y$. Potom 
+\begin{center}
+$A (A^- y) = A(A^- A x_0) = A x_0 = y$
+\end{center}
+\end{dokaz}
 
 \subsection{Metodika skúmania}
 
