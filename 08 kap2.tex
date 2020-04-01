@@ -148,9 +148,104 @@ Zoznam všetkých sa nachádza v GitHub repozitári spomenutom v úvode.
 Na základe podobnosti matíc daného typu sme prišli s nasledovnou hypotézou.
 
 \begin{hypoteza}
-$h^T b$ je odhadnuteľné práve vtedy, keď v matici návrhu $B$ má každý riadok a každý stĺpec aspoň jednu $0$ a aspoň jednu $1$
+$h^T b$ je odhadnuteľné práve vtedy, keď v matici návrhu $B$ existuje aspoň jeden riadok a aspoň jeden stĺpec taký,
+ktorý má aspoň jednu $0$ a aspoň jednu $1$.
 \end{hypoteza}
 
 \begin{dokaz}
-TODO
+Na základe vety (\ref{veta1}) vieme, že $h^T b$ je odhadnuteľné práve vtedy, keď $h \in \mathcal{M}(X^T)$
+(keď $h$ patrí do riadkového priestoru $X$),
+preto s danými podmienkami môžeme pracovať ekvivalentne.
+
+$\boxed{\implies}$ Nech $h = (0, \ldots, +1, -1) \in \mathcal{M}(X^T)$. Použijeme dôkaz sporom. 
+Nech v matici $B$ typu $m \times n$ neexistuje taký riadok, ktorý má aspoň jednu $0$ a aspoň jednu $1$,
+t. j všetky riadky obsahujú buď samé $0$ alebo samé $1$.
+Ako vyzerá matica $X$?
+
+Pozrime sa na riadky matice $X$ zodpovedajúce prvému riadku matice $B$.
+Sú to práve tie riadky, ktoré majú na prvej pozícii $1$, pričom si uvedomme, že všetky ostatné riadky majú na prvej pozícii $0$.
+
+% TODO
+\begin{center}
+$
+x_1 = (1, 0, \ldots, 1, 0, \ldots, 0, 1, 0)
+$,
+\end{center}
+\begin{center}
+$
+x_2 = (1, 0, \ldots, 0, 1, \ldots, 0, 1, 0)
+$,
+\end{center}
+\begin{center}
+$\vdots$
+\end{center}
+\begin{center}
+$
+x_n = (1, 0, \ldots, 0, 0, \ldots, 1, 1, 0)
+$
+\end{center}
+
+Keďže $h \in \mathcal{M}(X^T)$, existuje taká lineárna kombinácia riadkov $X$, ktorá dokopy dáva vektor $h$.
+Aké môžu mať v tejto lineárnej kombinácii zastúpenie riadky $x_1$, ..., $x_n$?
+Označme postupne $a_1$, ..., $a_n$ koeficienty vektorov $x_1$, ..., $x_n$ v lineárnej kombinácii riadkov $X$, ktorá dáva vektor $h$.
+Keďže $x_1$, ..., $x_n$ sú jediné riadky matice $X$ s $1$ na prvej pozícii a vektor $h$ má na prvej pozícii $0$,
+musí platiť $\sum_{i = 1}^n a_i = 0$.
+
+Z predpokladu, že každý z riadkov matice $B$ obsahuje buď samé $0$ alebo samé $1$, vyplýva,
+že každý z vektorov $x_1$, ..., $x_n$ má rovnaké posledné dve hodnoty, a to buď $(0, 1)$ alebo $(1, 0)$.
+Z toho spolu s rovnosťou $\sum_{i = 1}^n a_i = 0$ vyplýva, že lineárna kombinácia $\sum_{i = 1}^n a_i x_i$
+bude mať na posledných dvoch miestach hodnoty $(0, 0)$, a teda nijako "neprispeje" do vektoru $h$.
+
+Analogicky môžeme postupovať pre všetky riadky matice $B$.
+Týmto spôsobom pokryjeme všetky riadky matice $X$, vďaka čomu dospejeme k záveru,
+že z riadkov $X$ nie je možné lineárnou kombináciou zostrojiť vektor $h$.
+To nám dáva spor s predpokladom $h \in \mathcal{M}(X^T)$.
+Preto nemôže platiť, že všetky riadky matice $B$ obsahujú buď samé $0$ alebo samé $1$,
+a platí opačné tvdenie, t.j v $B$ existuje aspoň jeden riadok taký, ktorý obsahuje $0$ aj $1$.
+
+Rovnakou úvahou pre stĺpce $B$ dospejeme k záveru,
+že $B$ musí takisto obsahovať aspoň jeden stĺpec obsahujúci $0$ aj $1$.
+
+$\boxed{\impliedby}$ Nech matica $B$ je taká, že existuje aspoň jeden riadok a aspoň jeden stĺpec také, že majú $0$ aj $1$.
+Zostrojíme takú lineárnu kombináciu riadkov $X$, ktorá sa bude rovnať $h$.
+
+Nech riadok, ktorý má $0$ aj $1$, je $i$-ty v poradí a stĺpec s rovnakou vlastnosťou je $j$-ty v poradí.
+Bez ujmy na všeobecnosti, nech na $ij$-tom mieste matice $B$ sa nachádza $0$, teda $B_{ij} = 0$.
+
+Potom v $i$-tom riadku $B$ sa určite nachádza hodnota $B_{ik} = 1$ a v $j$-tom stĺpci sa nachádza hodnota $B_{lj} = 1$,
+pričom, samozrejme, $k \neq j$ a $l \neq i$.
+Označme $x_{ij}, x_{ik}, x_{lj}, x_{lk}$ riadky matice $X$ prislúchajúce prvkom $B_{ij}, B_{ik}, B_{lj}, B_{lk}$ matice $B$. Potom:
+
+\begin{center}
+$
+x_{ij} - x_{ik} - x_{lj} + x_{lk} = (0, 0, 0, \ldots, 0, N_1, N_2)
+$
+\end{center}
+je vektor, ktorý má na prvých $m + n$ miestach $0$, a na posledných dvoch hodnoty $N_1$ a $N_2$, ktoré zatiaľ necháme bokom.
+Prečo má daný vektor na prvých $m + n$ miestach $0$?
+Vo všeobecnosti má riadok $x_{rs}$ matice $X$ prislúchajúci prvku $B_{rs}$ matice $B$ na prvých $m + n$ miestach dve $1$,
+jednu prislúchajúcu riadku, druhú stĺpcu matice $B$. Konkrétne, riadok $x_{rs}$ má $1$ na $r$-tom mieste a $(m + s)$-tom mieste.
+
+Súčet $x_{ij} + x_{lk}$ má teda štyri jednotky na miestach $i, j, m + j, m + k$.
+Súčet $x_{ik} + x_{lj}$ má jednotky na tých istých miestach, 
+preto $x_{ij} - x_{ik} - x_{lj} + x_{lk} = x_{ij} + x_{lk} - (x_{ik} + x_{lj})$ má na prvých $m + n$ miestach $0$.
+
+Takto to vyzerá, keď zanedbáme stĺpce so samými nulami:
+\[
+\begin{split}
++(1, 0, 1, 0) \\
+-(1, 0, 0, 1) \\
+-(0, 1, 1, 0) \\
++(0, 1, 0, 1) \\
+=(0, 0, 0, 0) \\
+\end{split}
+\]
+
+Ako vyzerá chvost $(N_1, N_2)$? Keďže $B_{ij} = 0$ a $B_{ik} = B_{lj} = 1$,
+výraz $x_{ij} - x_{ik} - x_{lj}$ nám vytvorí chvost $(1, -2)$ (prípadne $(-2, 1)$, na tom ale nezáleží).
+Potom na základe toho, či na mieste $B_{lk}$ matice návrhu bola $0$ alebo $1$,
+nám výraz $x_{ij} - x_{ik} - x_{lj} + x_{lk}$ dá na posledných dvoch miestach $(2, -2)$ alebo $(1, -1)$.
+Vo všetkých prípadoch vektor $h$ dostaneme ihneď, prípadne po prenásobení konštantou.
+Našli sme teda lineárnu kombináciu riadkov $X$, ktorá nám dala vektor $h$, preto $h \in \mathcal{M}(X^T)$. $\square$
+
 \end{dokaz}
