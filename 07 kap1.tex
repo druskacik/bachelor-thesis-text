@@ -27,15 +27,15 @@ Keď lineárne vzťahy pre každú z $n$ nameraných jednotiek zapíšeme matico
 y = Xb + e
 \end{align}
 
-kde $y = (y_1, y_2, \ldots, y_n)^T$, $e = (e_1, e_2, \ldots, e_3)^T$ a
+kde $y = (y_1, y_2, \ldots, y_n)^T$, $e = (e_1, e_2, \ldots, e_n)^T$ a
 
 \begin{center}
 $
 X =
 \begin{bmatrix}
-x_{11} & \ldots & x_{1p} \\
-\vdots & \ddots & \\
-x_{n1} & \ldots & x_{np} 
+1 & x_{11} & \ldots & x_{1p} \\
+\vdots & \vdots & \ddots & \\
+1 & x_{n1} & \ldots & x_{np} 
 \end{bmatrix}
 $
 \end{center}
@@ -60,7 +60,7 @@ kde $C$ je nejaká kladne definitná matica.
 Ak $C = I$, potom minimalizujeme výraz
 $||y - Xb||_I^2 = ||y - Xb||^2 = \sum_{i=1}^n (y_i - X_{i \cdot } b)^2$
 , kde $X_{i \cdot }$ značí $i$-ty riadok matice $X$.
-V našej práci budeme predpokladať homogenitu chýb, čo v praxi znamená,
+V našej práci budeme predpokladať nezávislosť chýb a tiež homogenitu ich rozptylu, čo v praxi znamená,
 že skutočne budeme môcť dosadiť $C = I$.
 Preto maticu $C$ v ďalšom opise teórie spomínať nebudeme.
 
@@ -76,28 +76,34 @@ Odhad $\hat{b}$ parametra $b$ je teda riešením rovnice
 X b =  X (X^T X)^- X^T y
 \end{align}
 
-Toto riešenie spočítame ako:
+Všetky riešenia tejto rovnice musia mať tvar:
 
 \begin{center}
 $
-\hat{b} = (X^T X)^- X^T y
+(X^T X)^- X^T y
 $
 \end{center}
+
 kde použitá $g$-inverzia je ľubovoľná.
 
-Z uvedeného vyplýva, že v prípade regulárnosti $X$ je odhad $\hat{b}$ jednoznačný. 
+Z uvedeného vyplýva, že v prípade regulárnosti $X^T X$ je odhad $\hat{b}$ parametra $b$ jednoznačný. 
 V našej práci budeme skúmať matice (modely) $X$, ktoré nie sú regulárne, 
 takže jednoznačný odhad $\hat{b}$ nebudeme schopní nájsť (čo v konečnom dôsledku ani nie je naším záujmom).
 Budeme odhadovať lineárnu funkciu zložiek vektora $b$, konkrétne $h^T b = h_1 b_1 + \ldots + h_p b_p$,
-ktorá býva odhadnuteľná aj v prípade singularity $X$, ak vektor $h$ spĺňa určité podmienky. 
+ktorá býva jednoznačne odhadnuteľná aj v prípade singularity $X^T X$, ak vektor $h$ spĺňa určité podmienky. 
+
+\begin{defin}
+Lineárnu kombináciu $h^T b$ zložiek vektora b nazývame odhadnuteľnou,
+ak pre ľubovoľné riešenia $b^*$ a $b^{**}$ rovnice (\ref{least squares solution}) platí $h^T b^* = h^T b^{**}$.
+\end{defin}
+
 Je niekoľko ekvivalentných podmienok, ktoré stačia na to, aby $h^T b$ bolo odhadnuteľné. 
-Z nich spomenieme jednu v nasledovnej vete, ktorú použijeme neskôr v našej práci.
+Z nich spomenieme dve v nasledovnej vete, ktorú použijeme neskôr v našej práci.
 
 \begin{theorem}
 \label{veta1}
-$h^T b$ je odhadnuteľné, ak plati nasledovné ekvivaltentné podmienky:
+$h^T b$ je odhadnuteľné, ak platia nasledovné ekvivalentné podmienky:
 \begin{enumerate}
-  \item pre ľubovoľné riešenia $b^*$ a $b^{**}$ rovnice (\ref{least squares solution}) platí $h^T b^* = h^T b^{**}$
   \item $h \in \mathcal{M}(X^T)$
   \item $h \in \mathcal{M}(X^T X)$,
 \end{enumerate}
@@ -111,13 +117,16 @@ Potom pre jednoznačný odhad $h^T \hat{b}$ vektora $h^T b$ platí:
 $h^T \hat{b} = u^T X \hat{b} = u^T P y = u^T X(X^T X)^- X^T y$
 \end{center}
 
+Vidíme, že v strede výrazu na pravej strane je projekčná matica $X(X^T X)^- X^T$, ktorá je vždy jednoznačne určená, 
+nezávisle na voľbe zovšeobecnenej $g$-inverzie v danom výraze.
+
 Výsledok predchádzajúcej vety je dôležitý pre našu prácu, pretože nebudeme skúmať odhady $b$,
 ale odhady niektorých lineárnych kombinácií zložiek vektora $b$, 
 konkrétne napr. rozdiely medzi parametrami.
 
 Odhad $\hat{b}$ parametra $b$, ako aj odhad $h^T \hat{b}$ parametra $h^T b$, sú lineárne nevychýlené odhady,
 ktorým prislúcha disperzia (TODO: popremýšľaj, či treba bližšie opísať lineárny nevychýlený odhad). 
-Neskôr v našej práci budeme hľadať také modely $X$, pri ktorých je disperzia odhadov $b$ či $h^T b$ najmenšia možná,
+Neskôr v našej práci budeme hľadať také modely $X$, pri ktorých je disperzia odhadov $h^T b$ najmenšia možná,
 čo nám dá najlepší lineárny nevychýlený odhad. 
 Ak nami navrhované modely $X$ budú opisovať ten istý experiment, ten model $X$,
 pre ktorý disperzia odhadu $h^T b$ bude najmenšia, bude svojím spôsobom optimálny.
@@ -132,7 +141,7 @@ Potom minimálna možná disperzia lineárneho nevychýleného odhadu $h^T b$ je
 
 \begin{center}
 $
-m = \mathrm{Var}[h^T b] = h^T M^- h
+m = h^T M^- h
 $
 \end{center}
 

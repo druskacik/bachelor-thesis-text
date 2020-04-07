@@ -1,4 +1,4 @@
-\section{Môj model}
+\section{Riadkovo-stĺpcový aditívny model s dvoma typmi ošetrení}
 \label{my model}
 
 Cieľom tejto práce je skúmať experiment reprezentovaný binárnou maticou.
@@ -9,7 +9,7 @@ pričom faktor $A$ má $m$ úrovní a faktor $B$ $n$ úrovní.
 Pre každú kombináciu faktorov experimentátor zvolí jedno z dvojice ošetrení (angl. treatment).
 Budeme uvažovať len aditívny model bez interakcií.
 
-(Harmanov text == TODO: prepísať)Napríklad faktor $A$ môže označovať dobrovoľníka (t.j. máme $m$ dobrovoľníkov) 
+Napríklad faktor $A$ môže označovať dobrovoľníka (t.j. máme $m$ dobrovoľníkov) 
 a faktor $B$ účinnú látku, ktorú nazveme liečivo (t.j. máme $n$ liečiv). 
 Ošetrenie $0$ reprezentuje podanie liečiva orálnym spôsobom a ošetrenie $1$ vnútrožilne).
 Účinok, ktorý po čase nameriame na dobrovoľníkovi, 
@@ -147,10 +147,11 @@ Týmto spôsobom sme pri našom výskume získali zoznam matíc, pri ktorých $h
 Zoznam všetkých sa nachádza v GitHub repozitári spomenutom v úvode. 
 Na základe podobnosti matíc daného typu sme prišli s nasledovnou hypotézou.
 
-\begin{hypoteza}
+\begin{prop}
+\label{statement 1}
 $h^T b$ je odhadnuteľné práve vtedy, keď v matici návrhu $B$ existuje aspoň jeden riadok a aspoň jeden stĺpec taký,
 ktorý má aspoň jednu $0$ a aspoň jednu $1$.
-\end{hypoteza}
+\end{prop}
 
 \begin{dokaz}
 Na základe vety (\ref{veta1}) vieme, že $h^T b$ je odhadnuteľné práve vtedy, keď $h \in \mathcal{M}(X^T)$
@@ -195,6 +196,7 @@ Z predpokladu, že každý z riadkov matice $B$ obsahuje buď samé $0$ alebo sa
 že každý z vektorov $x_1$, ..., $x_n$ má rovnaké posledné dve hodnoty, a to buď $(0, 1)$ alebo $(1, 0)$.
 Z toho spolu s rovnosťou $\sum_{i = 1}^n a_i = 0$ vyplýva, že lineárna kombinácia $\sum_{i = 1}^n a_i x_i$
 bude mať na posledných dvoch miestach hodnoty $(0, 0)$, a teda nijako "neprispeje" do vektoru $h$.
+Vektor $h$ teda nemožno napísať ako lineárnu kombináciu riadkov $X$, čo je podmienka odhadnuteľnosti.
 
 Analogicky môžeme postupovať pre všetky riadky matice $B$.
 Týmto spôsobom pokryjeme všetky riadky matice $X$, vďaka čomu dospejeme k záveru,
@@ -249,3 +251,71 @@ Vo všetkých prípadoch vektor $h$ dostaneme ihneď, prípadne po prenásobení
 Našli sme teda lineárnu kombináciu riadkov $X$, ktorá nám dala vektor $h$, preto $h \in \mathcal{M}(X^T)$. $\square$
 
 \end{dokaz}
+
+\subsection{Optimálnosť návrhu modelu}
+
+Teraz sa pokúsime nájsť modely, ktoré pre nás budú v určitom zmysle optimálne. 
+Najprv ale definujme, čo presne optimalita modelu znamená.
+
+\begin{defin}
+Binárnu maticu $B$ návrhu modelu, $B \in \mathbb{R}^{m \times n}$, nazývame optimálnou, 
+ak pre všetky binárne matice $C \in \mathbb{R}^{m \times n}$ platí:
+
+\begin{center}
+\label{optimal matrix}
+$h^T M_{B}^- h \leq h^T M_{C}^- h$
+\end{center}
+kde $h = (0, 0,\ldots , +1, -1)$ je vektor zodpovedajú lineárnej kombinácii dvoch efektov, 
+$M_B$ a $M_C$ sú informačné matice prislúchajúce návrhom $B$, $C$ a $M_{B}^-$, $M_{C}^-$ sú ich ľubovolné pseudoinverzie.
+
+\end{defin}
+
+Nájsť optimálne matice v zmysle definície (\ref{optimal matrix}) je cieľom tejto práce. 
+Podobne ako pri skúmaní, či hodnotu $h^T b$ vôbec budeme môcť odhadnúť, 
+preskúmame najprv matice malého rozmeru a na základe výsledkov vyslovíme hypotézu pre všeobecný rozmer.
+
+Postupovať budeme nasledovne: zoberieme si malý rozmer a pre všetky binárne matice tohto rozmeru spočítame hodnotu $h^T M^- h$, 
+pokiaľ je to možné (viď tvrdenie (\ref{statement 1})). Z množiny týchto hodnôt vyberieme minimum. 
+Optimálne návrhy budú tie, ktorých prislúchajúca hodnota bude práve toto minimum.
+
+Optimálne návrhy sme určili do rozmeru $6 \times 5$, tu sú niektoré z nich pre štvorcové rozmery:
+
+\begin{center}
+$
+\begin{bmatrix}
+0 & 1 & 1 \\ 
+1 & 0 & 1 \\ 
+1 & 1 & 0 \\ 
+\end{bmatrix}
+$, 
+$
+\begin{bmatrix}
+0 & 0 & 1 & 1 \\
+0 & 0 & 1 & 1 \\
+1 & 1 & 0 & 0 \\
+1 & 1 & 0 & 0 \\
+\end{bmatrix}
+$, 
+$
+\begin{bmatrix}
+0 & 0 & 1 & 1 & 0 \\
+0 & 1 & 0 & 1 & 0 \\
+0 & 1 & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 & 1 \\
+1 & 0 & 0 & 0 & 1 \\
+\end{bmatrix}
+$
+\end{center}
+
+Ďalšie matice sa nachádzajú v prílohe B. Na základe týchto návrhov sme pre štvorcové matice prišli s nasledovnou hypotézou.
+
+\begin{hypoteza}
+\label{hypoteza1}
+(pre štvorcové matice)
+
+Binárna matica návrhu $B$ rozmeru $2k \times 2k$ je optimálna v zmysle definície (\ref{optimal matrix}) práve vtedy, 
+keď má v každom riadku a v každom stĺpci práve $k$ jednotiek (a práve $k$ núl).
+
+Binárna matica návrhu $B$ rozmeru $(2k + 1) \times (2k + 1)$ je optimálna práve vtedy, 
+keď všetky jej riadky aj stĺpce majú rovnaký počet jednotiek, a ten počet je buď $k$ alebo $k + 1$.
+\end{hypoteza}
