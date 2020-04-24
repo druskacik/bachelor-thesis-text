@@ -52,7 +52,7 @@ Maticu návrhu experimentu
 \end{bmatrix}
 \end{align}
 
-prepíšeme ako (TODO: popíš tými strapatými zátvorkami čo znamená čo):
+prepíšeme ako:
 
 \begin{align}
 \label{linear regression matrix}
@@ -68,6 +68,13 @@ prepíšeme ako (TODO: popíš tými strapatými zátvorkami čo znamená čo):
 0 & 0 & 1 & 0 & 0 & 1 & 1 & 0
 \end{bmatrix}
 \end{align}
+
+Ako presne sme pri generovaní matice postupovali?
+Každý riadok reprezentuje jednu z hodnôt v matici (\ref{model matrix}), preto máme dokopy $3 \times 3 = 9$ riadkov.
+Prvé tri stĺpce reprezentujú riadok, v ktorom sa hodnota nachádza, ďalšie tri reprezentujú stĺpec.
+Vo všeocenosti $ij$-tu pozíciu matice typu $m \times n$ reprezentuje riadok,
+ktorý má jednotky na $i$-tej a $(m + j)$-tej pozícii.
+Posledné dva stĺpce sú určené tým, či je hodnota $0$ alebo $1$.
 
 Označme vo všeobecnosti maticu modelu (\ref{model matrix}) $B$ a maticu lineárneho zobrazenia (\ref{linear regression matrix}) $X$. 
 Predpokladáme lineárne vzťahy, preto dostávame lineárnu regresiu
@@ -252,12 +259,48 @@ Našli sme teda lineárnu kombináciu riadkov $X$, ktorá nám dala vektor $h$, 
 
 \end{dokaz}
 
+\subsection{Ekvivalencie binárnych matíc}
+
+Pre rozmer $m \times n$ existuje $2^{mn}$ binárnych matíc, čo je obrovské číslo už pre malé hodnoty $m$ a $n$.
+(Napríklad už pre rozmer $5 \times 5$ máme viac než milión matíc.)
+Pre skúmanie špecifík jednotlivých matíc je výhodné uvedomiť si niektoré očividné ekvivalencie medzi maticami, 
+čo nám môže výrazne zredukovať počet matíc, s ktorými pracujeme,
+ a v konečnom dôsledku nám to umožní pracovať spôsobom “brute force” do väčšieho rozmeru.
+
+\begin{hypoteza}
+
+Matice, ktoré možno spermutovať jednu na druhú riadkovými a stĺpcovými permutáciami, sú ekvivalentné v zmysle, 
+že majú rovnakú hodnotu minimálneho rozptylu Gaussovho-Markovho rozdielu medzi dvoma efektmi.
+
+\end{hypoteza}
+
+Hypotézu uvádzame bez matematického dôkazu, ukážeme však, že ak naša interpretácia modelu reprezentovaného binárnou maticou je správna,
+hypotéza musí platíť. Model sme interpretovali ako zoznam trojíc pacient, lekár, spôsob prijatia lieku, 
+pričom pacienti zodpovedali riadkom, lekári stĺpcom, a spôsob prijatia lieku hodnotám v matici. 
+Uvedomme si, že o lekároch ani pacientoch pri výpočte rozptylu nič nevieme. 
+Permutáciám riadkov a stĺpcov preto zodpovedá akési „prelabelovanie“ jednotlivých lekárov a pacientov, 
+vôbec to ale nezmení štruktúru experimentu. Pripomeňme si, že rozptyl Gaussovho-Markovho rozdielu medzi efektmi 
+počítame pred vykonaním experimentu a nameraním dát.
+
+Táto jediná ekvivalencia nám výrazne zredukuje počet matíc, s ktorými musíme počítať. 
+V tabuľke uvádzame počet neekvivalentných tried pre štvorcové rozmery až do $6 \times 6$.
+
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c|c|c| }
+  \hline
+  Rozmer & $1 \times 1$ & $2 \times 2$ & $3 \times 3$ & $4 \times 4$ & $5 \times 5$ & $6 \times 6$ \\ \hline
+  Počet binárnych matíc & 2 & 16 & 512 & 65 536 & 33 554 432 & 68 719 476 736 \\ \hline
+  Počet neekvivalentných tried & 2 & 7 & 36 & 317 & 5 624 & 251 610 \\ \hline
+\end{tabular}
+\end{center}
+
 \subsection{Optimálnosť návrhu modelu}
 
 Teraz sa pokúsime nájsť modely, ktoré pre nás budú v určitom zmysle optimálne. 
 Najprv ale definujme, čo presne optimalita modelu znamená.
 
 \begin{defin}
+\label{optimal matrix definition}
 Binárnu maticu $B$ návrhu modelu, $B \in \mathbb{R}^{m \times n}$, nazývame optimálnou, 
 ak pre všetky binárne matice $C \in \mathbb{R}^{m \times n}$ platí:
 
@@ -319,3 +362,73 @@ keď má v každom riadku a v každom stĺpci práve $k$ jednotiek (a práve $k$
 Binárna matica návrhu $B$ rozmeru $(2k + 1) \times (2k + 1)$ je optimálna práve vtedy, 
 keď všetky jej riadky aj stĺpce majú rovnaký počet jednotiek, a ten počet je buď $k$ alebo $k + 1$.
 \end{hypoteza}
+
+\subsection{Hodnota minimálneho rozptylu}
+
+Ako závisí hodnota (minimálna) Gaussovho-Markovovho rozptylu od rozmeru matice návrhu? 
+Ukážeme, že minimálny rozptyl má so stúpajúcim rozmerom klesajúcu tendenciu. 
+(Čo, napokon, dáva zmysel, pretože väčší rozdiel nám ponúka viac dát na určenie rozdielu medzi dvoma efektmi.)
+
+Hodnoty pre jednotlivé rozmery určíme tak, že pre každý rozmer zoberieme jednu maticu optimálnu 
+v zmysle definície (\ref{optimal matrix definition}) a určíme ju pre ňu.
+
+Matice vytvoríme tak, aby spĺňali hypotézu (\ref{hypoteza1}), a to nasledovne.
+
+Pre párny rozmer $2k \times 2k$ rozdelíme maticu na $4$ bloky $k \times k$, 
+z nich ľavý horný a pravý dolný budú samé jednotky, zvyšné dva samé nuly. 
+Pre nepárny rozmer $(2k + 1) \times (2k + 1)$ budú ľavý horný blok $k \times k$ tvoriť samé jednotky 
+a pravý dolný blok $(k + 1) \times (k + 1)$ bude identita, v ktorej sa zamenili jednotky a nuly.
+
+Názorný príklad, ako to vyzerá pre rozmery $6 \times 6$ a $7 \times 7$:
+
+\begin{center}
+$
+\begin{bmatrix}
+1 & 1 & 1 & 0 & 0 & 0 \\
+1 & 1 & 1 & 0 & 0 & 0 \\
+1 & 1 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 & 1 & 1 \\
+0 & 0 & 0 & 1 & 1 & 1 \\
+0 & 0 & 0 & 1 & 1 & 1 \\
+\end{bmatrix}
+$,
+$
+\begin{bmatrix}
+1 & 1 & 1 & 0 & 0 & 0 & 0 \\
+1 & 1 & 1 & 0 & 0 & 0 & 0 \\
+1 & 1 & 1 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 & 1 & 1 \\
+0 & 0 & 0 & 1 & 0 & 1 & 1 \\
+0 & 0 & 0 & 1 & 1 & 0 & 1 \\
+0 & 0 & 0 & 1 & 1 & 1 & 0 \\
+\end{bmatrix}
+$
+\end{center}
+
+V tabuľke a grafe sú znázornené hodnoty rozptylu do rozmeru $15 \times 15$.
+
+\begin{center}
+\begin{tabular}{ |c|c|}
+  \hline
+  Rozmer & Minimálna hodnota rozptylu \\ \hline
+  $2 \times 2$ & 1 \\ \hline
+  $3 \times 3$ & 0.5 \\ \hline
+  $4 \times 4$ & 0.25 \\ \hline
+  $5 \times 5$ & 0.167 \\ \hline
+  $6 \times 6$ & 0.111 \\ \hline
+  $7 \times 7$ & 0.083 \\ \hline
+  $8 \times 8$ & 0.063 \\ \hline
+  $9 \times 9$ & 0.05 \\ \hline
+  $10 \times 10$ & 0.04 \\ \hline
+  $11 \times 11$ & 0.033 \\ \hline
+  $12 \times 12$ & 0.028 \\ \hline
+  $13 \times 13$ & 0.024 \\ \hline
+  $14 \times 14$ & 0.02 \\ \hline
+  $15 \times 15$ & 0.018 \\ \hline
+\end{tabular}
+\end{center}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics{minimalny_rozptyl.png}
+\end{figure}
