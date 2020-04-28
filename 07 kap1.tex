@@ -76,6 +76,8 @@ Odhad $\hat{b}$ parametra $b$ je teda riešením rovnice
 X b =  X (X^T X)^- X^T y
 \end{align}
 
+kde $P = X (X^T X)^- X^T$ je ortogonálny projektor na stĺpcový priestor $X$.
+
 Všetky riešenia tejto rovnice musia mať tvar:
 
 \begin{center}
@@ -93,6 +95,7 @@ Budeme odhadovať lineárnu funkciu zložiek vektora $b$, konkrétne $h^T b = h_
 ktorá býva jednoznačne odhadnuteľná aj v prípade singularity $X^T X$, ak vektor $h$ spĺňa určité podmienky. 
 
 \begin{defin}
+\label{odhadnutelnost}
 Lineárnu kombináciu $h^T b$ zložiek vektora b nazývame odhadnuteľnou,
 ak pre ľubovoľné riešenia $b^*$ a $b^{**}$ rovnice (\ref{least squares solution}) platí $h^T b^* = h^T b^{**}$.
 \end{defin}
@@ -109,6 +112,47 @@ $h^T b$ je odhadnuteľné, ak platia nasledovné ekvivalentné podmienky:
 \end{enumerate}
 kde $\mathcal{M}$ označuje stĺpcový priestor matice.
 \end{theorem}
+
+\begin{dokaz}
+Ukážeme, že ak $h \in \mathcal{M}(X^T)$ tak $h^T b$ je odhadnuteľné.
+Nech teda $h \in \mathcal{M}(X^T)$. Potom existuje také $u$, že $h = X^T u$.
+Preto pre ľubovoľné riešenie $\hat{b}$ rovnice (\ref{least squares solution}) platí:
+
+\begin{center}
+$
+h^T \hat{b} = u^T X \hat{b} = u^T P y
+$
+\end{center}
+
+kde päta kolmice $Py$ je jednoznačne daná, preto aj $h^T \hat{b}$ je jednoznačne dané (bez ohľadu na voľbu $\hat{b}$).
+$h^T b$ je teda podľa definície (\ref{odhadnutelnost}) odhadnuteľné.
+
+Ekvivalencia podmienok (1) a (2) vyplýva z toho, že vo všeobecnosti platí, že $\mathcal{M}(X^T) = \mathcal{M}(X^T X)$.
+To ukážeme nasledovne:
+
+Nech $z \in \mathcal{M}(X^T X)$. Potom existuje také $v$, že $z = X^T X v = X^T u$ pre $u = X v$.
+Preto $z \in \mathcal{M}(X^T)$ a teda $\mathcal{M}(X^T X) \subseteq \mathcal{M}(X^T)$.
+
+Teraz nech $z \in \mathcal{K}(X^T X)$, kde $\mathcal{K}$ označuje nulový priestor. Potom:
+
+\begin{center}
+$
+X^T X z = (0, 0, \ldots, 0)^T \Rightarrow z^T X^T X z = 0 = (Xz)^T Xz = ||Xz|| \Rightarrow Xz = 0
+$
+\end{center}
+
+Preto $z \in \mathcal{K}(X)$, a teda $\mathcal{K}(X^T X) \subseteq \mathcal{K}(X)$.
+Z lineárnej algebry ale vieme, že nulový priestor matice je kolmý doplnok jej riadkového priestoru,
+preto predošlý výraz vieme rozšíriť:
+\begin{center}
+$
+[\mathcal{M}(X^T X)]^{\perp} = \mathcal{K}(X^T X) \subseteq \mathcal{K}(X) = [\mathcal{M}(X^T)]^{\perp}
+$
+\end{center}
+
+Odstránením $\perp$ sa inklúzia obráti, čo spolu s opačnou inklúziou vyššie dáva výsledok $\mathcal{M}(X^T) = \mathcal{M}(X^T X)$.
+$\square$
+\end{dokaz}
 
 Ak $h$ patrí do riadkového priestoru matice $X$, potom existuje také $u$, že $h = X^T u$.
 Potom pre jednoznačný odhad $h^T \hat{b}$ vektora $h^T b$ platí:
@@ -173,7 +217,7 @@ Nech rovnica $Ax = y$ má riešenie a nech $A^-$ je ľubovolná $g$-inverzia. Po
 \end{theorem}
 
 \begin{dokaz}
-Keďže $Ax = y$ má riešenie, tak existuje take $x_0$, že $A x_0 = y$. Potom 
+Keďže $Ax = y$ má riešenie, tak existuje také $x_0$, že $A x_0 = y$. Potom 
 \begin{center}
 $A (A^- y) = A(A^- A x_0) = A x_0 = y$
 \end{center}

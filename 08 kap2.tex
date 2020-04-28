@@ -363,6 +363,96 @@ Binárna matica návrhu $B$ rozmeru $(2k + 1) \times (2k + 1)$ je optimálna pr�
 keď všetky jej riadky aj stĺpce majú rovnaký počet jednotiek, a ten počet je buď $k$ alebo $k + 1$.
 \end{hypoteza}
 
+Ako to vyzerá pre matice iného, ako štvorcového rozmeru? 
+Kľúčový je pomer jednotiek a núl v matici návrhu. 
+Všimnime si, že pri štvorcových rozmeroch v predošlej hypotéze je v prípade párneho rozmeru rovnaký počet jednotiek a núl, 
+no v prípade nepárneho rozmeru pomer nielenže nie je pol na pol (čo ani nemôže byť), 
+ale dokonca k tomuto pomeru ani nie je tak blízko, ako by mohol byť. 
+Napríklad pri rozmere $5 \times 5$ by sme mohli očakávať, že pomer jednotiek a núl v optimálnom návrhu bude $13:12$, 
+ale podľa hypotézy je to $15:10$. Skutočnosť, že $5$ delí $10$ aj $15$, nie je náhodná, 
+a bude zohrávať kľúčovú rolu pri hypotéze o návrhoch iných ako štvorcových rozmerov.
+
+\begin{hypoteza}
+\label{hypoteza2}
+(pre neštvorcové matice)
+
+Postačujúcou podmienkou optimality pre rozmer $2k \times 2l$ je, ak má matica práve $2kl$ jednotiek a $2kl$ núl, 
+pričom v každom z $2k$ riadkov je $l$ jednotiek a $l$ núl a v každom z $2l$ stĺpcov je práve $k$ jednotiek a $k$ núl.
+
+Postačujúcou podmienkou optimality pre rozmer $2k \times 2l + 1$ je, ak má matica práve $(2l + 1)k$ jednotiek a $(2l + 1)k$ núl, 
+pričom v každom z $2l + 1$ stĺpcov je práve $k$ jednotiek a $k$ núl, v $k$ riadkoch je $l + 1$ jednotiek a $l$ núl 
+a v $k$ zvyšných riadkoch je $l$ jednotiek a $l + 1$ núl.
+
+Ďalej nech bez ujmy na všeobecnosti $k < l$.
+
+Postačujúcou podmienkou optimality pre rozmer $2k + 1 \times 2l + 1$ je, 
+ak má matica $(l + 1)(2k + 1)$ jednotiek a $l(2k + 1)$ núl (alebo naopak), 
+pričom v každom z $2k + 1$ riadkov je práve $l + 1$ jednotiek a $l$ núl, v $l + k + 1$ stĺpcoch je práve $k + 1$
+jednotiek a v $l - k$ stĺpcoch je práve $k$ jednotiek.
+\end{hypoteza}
+
+\begin{com}
+Podmienky nie sú nutné, pretože napr. pri rozmere $3 \times 6$ sme našli optimálne matice s pomerom jednotiek a núl
+nielen $9:9$ (spĺňajúce hypotézu), ale aj $6:12$, čo naznačuje, 
+že v niektorých prípadoch matice pokryté hypotézou nie sú všetky optimálne matice daného rozmeru. 
+Hypotéza je napriek tomu cenná, pretože pre prax nám poskytuje mechanizmus, ako vytvoriť optimálny návrh experimentu.
+\end{com}
+
+Niektoré z optimálnych návrhov pre neštvorcové rozmery:
+
+\begin{center}
+$
+\begin{bmatrix}
+0 & 0 & 1 & 1 \\
+0 & 0 & 1 & 1 \\
+1 & 1 & 0 & 0 \\
+\end{bmatrix}
+$,
+$
+\begin{bmatrix}
+0 & 0 & 0 & 0 & 1 & 1 & 1 \\
+0 & 1 & 1 & 1 & 0 & 0 & 0 \\
+1 & 0 & 0 & 1 & 0 & 0 & 1 \\
+\end{bmatrix}
+$,
+$
+\begin{bmatrix}
+0 & 0 & 1 & 1 & 1 \\ 
+0 & 1 & 0 & 0 & 1 \\ 
+0 & 1 & 0 & 1 & 0 \\ 
+1 & 0 & 0 & 0 & 1 \\ 
+1 & 0 & 1 & 1 & 0 \\ 
+1 & 1 & 1 & 0 & 0 \\ 
+\end{bmatrix}
+$
+\end{center}
+
+Niektoré z optimálnych návrhov pre rozmer $3 \times 6$:
+
+\begin{center}
+$
+\begin{bmatrix}
+0 & 0 & 0 & 0 & 1 & 1 \\
+0 & 0 & 1 & 1 & 0 & 0 \\
+1 & 1 & 0 & 0 & 0 & 0 \\
+\end{bmatrix}
+$,
+$
+\begin{bmatrix}
+0 & 0 & 0 & 1 & 1 & 1 \\
+0 & 0 & 0 & 1 & 1 & 1 \\
+1 & 1 & 1 & 0 & 0 & 0 \\
+\end{bmatrix}
+$,
+$
+\begin{bmatrix}
+0 & 0 & 1 & 1 & 1 & 1 \\
+1 & 1 & 0 & 0 & 1 & 1 \\
+1 & 1 & 1 & 1 & 0 & 0 \\
+\end{bmatrix}
+$
+\end{center}
+
 \subsection{Hodnota minimálneho rozptylu}
 
 Ako závisí hodnota (minimálna) Gaussovho-Markovovho rozptylu od rozmeru matice návrhu? 
