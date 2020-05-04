@@ -259,6 +259,10 @@ Našli sme teda lineárnu kombináciu riadkov $X$, ktorá nám dala vektor $h$, 
 
 \end{dokaz}
 
+Uvedomme si, že toto tvrdenie dáva intuitívne význam. Ak by sme totiž organizovali experiment napr. podľa druhej matice so zoznamu vyššie, 
+tak by sme nevedeli rozlíšiť, či sú pozorované rozdiely medzi meraniami zodpovedajúcimi prvým dvom stĺpcom a posledným stĺpcom spôsobené rozdielom medzi efektami ošetrení, 
+alebo rozdielom medzi efektami ošetrovateľov 1 a 2 v porovnaní s ošetrovateľom 3. (Bavíme sa o reprezentácii modelu, kde riadky reprezentujú pacientov a stĺpce ošetrovateľov.)
+
 \subsection{Ekvivalencie binárnych matíc}
 
 Pre rozmer $m \times n$ existuje $2^{mn}$ binárnych matíc, čo je obrovské číslo už pre malé hodnoty $m$ a $n$.
@@ -270,7 +274,7 @@ Pre skúmanie špecifík jednotlivých matíc je výhodné uvedomiť si niektor�
 \begin{hypoteza}
 
 Matice, ktoré možno spermutovať jednu na druhú riadkovými a stĺpcovými permutáciami, sú ekvivalentné v zmysle, 
-že majú rovnakú hodnotu minimálneho rozptylu Gaussovho-Markovho rozdielu medzi dvoma efektmi.
+že majú rovnakú hodnotu minimálneho rozptylu Gaussovho-Markovovho odhadu rozdielu medzi efektami ošetrení.
 
 \end{hypoteza}
 
@@ -278,8 +282,8 @@ Hypotézu uvádzame bez matematického dôkazu, ukážeme však, že ak naša in
 hypotéza musí platíť. Model sme interpretovali ako zoznam trojíc pacient, lekár, spôsob prijatia lieku, 
 pričom pacienti zodpovedali riadkom, lekári stĺpcom, a spôsob prijatia lieku hodnotám v matici. 
 Uvedomme si, že o lekároch ani pacientoch pri výpočte rozptylu nič nevieme. 
-Permutáciám riadkov a stĺpcov preto zodpovedá akési „prelabelovanie“ jednotlivých lekárov a pacientov, 
-vôbec to ale nezmení štruktúru experimentu. Pripomeňme si, že rozptyl Gaussovho-Markovho rozdielu medzi efektmi 
+Permutáciám riadkov a stĺpcov preto zodpovedá akési „preznačenie“ jednotlivých lekárov a pacientov, 
+vôbec to ale nezmení štruktúru experimentu. Pripomeňme si, že rozptyl Gaussovho-Markovovho odhadu rozdielu medzi efektami
 počítame pred vykonaním experimentu a nameraním dát.
 
 Táto jediná ekvivalencia nám výrazne zredukuje počet matíc, s ktorými musíme počítať. 
@@ -294,22 +298,23 @@ V tabuľke uvádzame počet neekvivalentných tried pre štvorcové rozmery až 
 \end{tabular}
 \end{center}
 
-\subsection{Optimálnosť návrhu modelu}
+\subsection{Optimálnosť návrhu experimentu}
 
 Teraz sa pokúsime nájsť modely, ktoré pre nás budú v určitom zmysle optimálne. 
 Najprv ale definujme, čo presne optimalita modelu znamená.
 
 \begin{defin}
 \label{optimal matrix definition}
-Binárnu maticu $B$ návrhu modelu, $B \in \mathbb{R}^{m \times n}$, nazývame optimálnou, 
-ak pre všetky binárne matice $C \in \mathbb{R}^{m \times n}$ platí:
+Nech $h = (0, 0,\ldots , +1, -1)^T$ je vektor zodpovedajúci lineárnej kombinácii dvoch efektov
+a nech $B \in \mathbb{R}^{m \times n}$ je taká binárna matica, že pre jej informačnú maticu $M_B$ platí $h \in \mathcal{M}(M_B)$.
+Potom $B$ nazývame optimálnou, ak pre všetky binárne matice $C \in \mathbb{R}^{m \times n}$ také,
+že $h \in \mathcal{M}(M_C)$ pre ich informačnú maticu $M_C$, platí:
 
 \begin{center}
 \label{optimal matrix}
 $h^T M_{B}^- h \leq h^T M_{C}^- h$
 \end{center}
-kde $h = (0, 0,\ldots , +1, -1)$ je vektor zodpovedajú lineárnej kombinácii dvoch efektov, 
-$M_B$ a $M_C$ sú informačné matice prislúchajúce návrhom $B$, $C$ a $M_{B}^-$, $M_{C}^-$ sú ich ľubovolné pseudoinverzie.
+kde $M_{B}^-$ a $M_{C}^-$ sú ľubovolné pseudoinverzie informačných matíc $M_B$ a $M_C$.
 
 \end{defin}
 
@@ -362,6 +367,10 @@ keď má v každom riadku a v každom stĺpci práve $k$ jednotiek (a práve $k$
 Binárna matica návrhu $B$ rozmeru $(2k + 1) \times (2k + 1)$ je optimálna práve vtedy, 
 keď všetky jej riadky aj stĺpce majú rovnaký počet jednotiek, a ten počet je buď $k$ alebo $k + 1$.
 \end{hypoteza}
+
+\begin{com}
+Hypotéza je do rozmeru $6 \times 6$ tvrdením, pretože sa nám to podarilo ukázať úplnou enumeráciou všetkých možných návrhov.
+\end{com}
 
 Ako to vyzerá pre matice iného, ako štvorcového rozmeru? 
 Kľúčový je pomer jednotiek a núl v matici návrhu. 
@@ -455,14 +464,12 @@ $
 
 \subsection{Hodnota minimálneho rozptylu}
 
-Ako závisí hodnota (minimálna) Gaussovho-Markovovho rozptylu od rozmeru matice návrhu? 
-Ukážeme, že minimálny rozptyl má so stúpajúcim rozmerom klesajúcu tendenciu. 
+Ako závisí hodnota Gaussovho-Markovovho odhadu rozdielu medzi efektami od rozmeru matice návrhu? 
+Ukážeme, že tento najmenší dosiahnuteľný rozptyl má so stúpajúcim rozmerom klesajúcu tendenciu. 
 (Čo, napokon, dáva zmysel, pretože väčší rozdiel nám ponúka viac dát na určenie rozdielu medzi dvoma efektmi.)
 
 Hodnoty pre jednotlivé rozmery určíme tak, že pre každý rozmer zoberieme jednu maticu optimálnu 
-v zmysle definície (\ref{optimal matrix definition}) a určíme ju pre ňu.
-
-Matice vytvoríme tak, aby spĺňali hypotézu (\ref{hypoteza1}), a to nasledovne.
+v zmysle definície (\ref{optimal matrix definition}).
 
 Pre párny rozmer $2k \times 2k$ rozdelíme maticu na $4$ bloky $k \times k$, 
 z nich ľavý horný a pravý dolný budú samé jednotky, zvyšné dva samé nuly. 
