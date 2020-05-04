@@ -18,9 +18,9 @@ efektu liečiva a efektu ošetrenia.
 Všetky tieto efekty uvažujeme ako neznáme parametere modelu.
 
 Návrh teda možno reprezentovať binárnou maticou 
-(alebo bipartitným grafom, čo opíšeme neskoršie vnašej práci).
+(alebo bipartitným grafom, čo opíšeme neskoršie v našej práci).
 
-Cieľom experimentu je odhadnúť rozdiel medzi dvoma efektmi (treamentami).
+Cieľom experimentu je odhadnúť rozdiel medzi dvoma efektmi (treatmentami).
 Cieľom hľadania optimálneho modelu je nájsť taký návrh, pri ktorom
 rozptyl Gauss-Markovovho odhadu rozdielu medzi efektmi dvojice ošetrení (t.j. odhadu kontrastu ošetrení) bude čo najmenší.
 (Použijeme pri tom Gaussovu-Markovovu vetu z predošlej kapitoly.)
@@ -101,7 +101,7 @@ Z algoritmu, ktorým sme z matice návrhu $B$ vytvorili maticu lineárnej regres
 vyplýva, že vektor $h$ má tvar $(0, 0, 0, \ldots, +1, -1)^T$.
 
 Na zistenie, či $h^T b$ je odhadnuteľné, použijeme vetu (\ref{veta1}), 
-a na následné nájdenie minimálneho rozptylu Gauss-Markovovho odhadu rozdielu medzi efektmi 
+a na následné nájdenie minimálneho rozptylu Gauss-Markovovho odhadu rozdielu medzi efektami 
 použijeme Gaussovu-Markovovu vetu (\ref{gauss-markov}).
 
 \subsection{Odhadnuteľnosť $h^T b$}
@@ -394,7 +394,7 @@ a v $k$ zvyšných riadkoch je $l$ jednotiek a $l + 1$ núl.
 
 Ďalej nech bez ujmy na všeobecnosti $k < l$.
 
-Postačujúcou podmienkou optimality pre rozmer $2k + 1 \times 2l + 1$ je, 
+Postačujúcou podmienkou optimality pre rozmer $(2k + 1) \times (2l + 1)$ je, 
 ak má matica $(l + 1)(2k + 1)$ jednotiek a $l(2k + 1)$ núl (alebo naopak), 
 pričom v každom z $2k + 1$ riadkov je práve $l + 1$ jednotiek a $l$ núl, v $l + k + 1$ stĺpcoch je práve $k + 1$
 jednotiek a v $l - k$ stĺpcoch je práve $k$ jednotiek.
@@ -461,6 +461,10 @@ $
 \end{bmatrix}
 $
 \end{center}
+
+Napriek tomu, že hypotézu o optimálnych maticiach sa nám matematicky dokázať nepodarilo, numericky sme až do rozmeru $30 \times 30$ ukázali,
+že zmena jednej hodnoty v nami navrhovanom optimálnom návrhu spôsobí zväčšenie hľadaného rozptylu.
+Dané matice teda určite tvoria lokálne minimum (na okolí tých matíc, ktoré majú odlišnú najviac jednu hodnotu).
 
 \subsection{Hodnota minimálneho rozptylu}
 
@@ -529,3 +533,283 @@ V tabuľke a grafe sú znázornené hodnoty rozptylu do rozmeru $15 \times 15$.
   \centering
   \includegraphics{minimalny_rozptyl.png}
 \end{figure}
+
+Vidíme, že pre rozmer $2k \times 2k$ je hodnota rozptylu $1/k^2$. Ukážeme, že to platí vo všeobecnosti.
+
+\begin{prop}
+Pre optimálnu maticu návrhu rozmeru $2k \times 2k$ je hodnota Gaussovho-Markovho odhadu rozdielu medzi efektami $1/k^2$.
+\end{prop}
+
+\begin{dokaz}
+Nech $B$ je optimálna matica návrhu rozmeru $2k \times 2k$ spĺňajúca hypotézu (\ref{hypoteza1}). Označme $X$ maticu lineárnej regresie pre návrh $B$. Hodnotu rozptylu $m$ vypočítame ako $h^T M^- h$,
+kde $M = X^T X$ je informačná matica lineárnej regresie a vektor $h = (0, 0, \ldots, -1, 1)^T $ zodpovedá rozdielu dvoch efektov. Ako vyzerajú posledné dva stĺpce matice $M$?
+
+Matica $X$ je rozmeru $(4k + 2) \times (4k + 2)$, pričom prvých $2k$ riadkov zodpovedá $2k$ riadkom návrhu $B$, druhých $2k$ riadkov zodpovedá $2k$ stĺpcom návrhu $B$,
+a posledné dva riadky zodpovedajú efektu na jednotlivých pozíciách návrhu $B$. Posledné dva stĺpce súčinu $X^T X$ zodpovedajú násobkom riadkov $X^T$ (stĺpcov $X$) s dvoma stĺpcami $X$ zodpovedajúcimi efektu.
+Ak riadok, ktorým násobíme, je jeden zo $4k$ riadkov zodpovedajúcich stĺpcu alebo riadku návrhu $B$, hodnota súčinu bude predstavovať počet toho ktorého efektu v danom stĺpci alebo riadku.
+Tá je podľa hypotézy (\ref{hypoteza1}) práve $k$ pre oba efekty. Ak navzájom násobíme riadok a stĺpec zodpovedajúci efektu, hodnota bude $0$, ak ide o rozdielne efekty,
+alebo celkový počet daného efektu v návrhu $B$, ak ide o ten istý efekt. Počet efektu v optimálnom návrhu je podľa hypotézy $2k^2$.
+Matica $X^T X$ je symetrická, preto jej posledné dva riadky budú rovnaké ako posledné dva stĺpce.
+
+Posledné dva riadky matice $M = X^T X$ pre maticu návrhu $B$ rozmeru $2k \times 2k$ majú teda tvar:
+
+\begin{center}
+$
+\begin{bmatrix}
+k & k & \ldots & k & 2k^2 & 0 & \\
+k & k & \ldots & k & 0 & 2k^2 & \\
+\end{bmatrix}
+$
+\end{center}
+
+Napr. takto vyzerá matica $M$ pre optimálne návrhy rozmerov $2$ a $4$:
+
+\begin{center}
+$
+\begin{bmatrix}
+2 & 0 & 1 & 1 & 1 & 1 \\
+0 & 2 & 1 & 1 & 1 & 1 \\
+1 & 1 & 2 & 0 & 1 & 1 \\
+1 & 1 & 0 & 2 & 1 & 1 \\
+1 & 1 & 1 & 1 & 2 & 0 \\
+1 & 1 & 1 & 1 & 0 & 2 \\
+\end{bmatrix}
+$,
+$
+\begin{bmatrix}
+4 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 2 & 2 \\
+0 & 4 & 0 & 0 & 1 & 1 & 1 & 1 & 2 & 2 \\
+0 & 0 & 4 & 0 & 1 & 1 & 1 & 1 & 2 & 2 \\
+0 & 0 & 0 & 4 & 1 & 1 & 1 & 1 & 2 & 2 \\
+1 & 1 & 1 & 1 & 4 & 0 & 0 & 0 & 2 & 2 \\
+1 & 1 & 1 & 1 & 0 & 4 & 0 & 0 & 2 & 2 \\
+1 & 1 & 1 & 1 & 0 & 0 & 4 & 0 & 2 & 2 \\
+1 & 1 & 1 & 1 & 0 & 0 & 0 & 4 & 2 & 2 \\
+2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 8 & 0 \\
+2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 0 & 8 \\
+\end{bmatrix}
+$
+\end{center}
+
+Teraz dosadením ukážeme, že $h^T M^- h = (h^- M {h^-}^T)^-$. Ak to má platiť, musí platiť nasledovná rovnosť:
+
+\begin{center}
+$
+h^- M {h^-}^T = h^- M {h^-}^T (h^- M {h^-}^T)^- h^- M {h^-}^T = h^- M {h^-}^T h^T M^- h h^- M {h^-}^T
+$
+\end{center}
+
+Pre vektor $v$ vo všeobecnosti platí, že $v^- = \frac{v^T}{v^T v}$. Pre náš vektor $h$ to znamená, že $h^- = h^T/2 = (0, 0, \ldots, -1/2, 1/2)$.
+Ukážeme, že ${h^-}^T h^T$ a $h h^-$ vo vzorci vyššie dávajú tú istú maticu.
+
+\begin{center}
+$
+{h^-}^T h^T = 
+\begin{bmatrix}
+0 \\
+0 \\
+\vdots \\
+-1/2 \\
+1/2 \\
+\end{bmatrix}
+\begin{bmatrix}
+0 & 0 & \ldots & -1 & 1 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 & 0 & \ldots & 0 & 0 \\
+0 & 0 & \ldots & 0 & 0 \\
+\vdots && \ddots \\
+0 & 0 & \ldots & 1/2 & -1/2 \\
+0 & 0 & \ldots & -1/2 & 1/2 \\
+\end{bmatrix}
+$
+\end{center}
+
+\begin{center}
+$
+h h^- = 
+\begin{bmatrix}
+0 \\
+0 \\
+\vdots \\
+-1 \\
+1 \\
+\end{bmatrix}
+\begin{bmatrix}
+0 & 0 & \ldots & -1/2 & 1/2 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 & 0 & \ldots & 0 & 0 \\
+0 & 0 & \ldots & 0 & 0 \\
+\vdots && \ddots \\
+0 & 0 & \ldots & 1/2 & -1/2 \\
+0 & 0 & \ldots & -1/2 & 1/2 \\
+\end{bmatrix}
+$
+\end{center}
+
+Označme túto maticu $H$. Teraz ukážeme, že $HM = MH$.
+
+\begin{center}
+$
+HM = 
+\begin{bmatrix}
+0 & 0 & \ldots & 0 & 0 \\
+0 & 0 & \ldots & 0 & 0 \\
+\vdots && \ddots \\
+0 & 0 & \ldots & 1/2 & -1/2 \\
+0 & 0 & \ldots & -1/2 & 1/2 \\
+\end{bmatrix}
+\begin{bmatrix}
+&&& k & k \\
+&&& \vdots & \vdots \\
+&&& k & k \\
+k & \ldots & k & 2k^2 & 0 \\
+k & \ldots & k & 0 & 2k^2 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 & 0 & \ldots & 0 & 0 \\
+0 & 0 & \ldots & 0 & 0 \\
+\vdots && \ddots \\
+0 & 0 & \ldots & k^2 & -k^2 \\
+0 & 0 & \ldots & -k^2 & k^2 \\
+\end{bmatrix}
+$
+\end{center}
+
+\begin{center}
+$
+MH = 
+\begin{bmatrix}
+&&& k & k \\
+&&& \vdots & \vdots \\
+&&& k & k \\
+k & \ldots & k & 2k^2 & 0 \\
+k & \ldots & k & 0 & 2k^2 \\
+\end{bmatrix}
+\begin{bmatrix}
+0 & 0 & \ldots & 0 & 0 \\
+0 & 0 & \ldots & 0 & 0 \\
+\vdots && \ddots \\
+0 & 0 & \ldots & 1/2 & -1/2 \\
+0 & 0 & \ldots & -1/2 & 1/2 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 & 0 & \ldots & 0 & 0 \\
+0 & 0 & \ldots & 0 & 0 \\
+\vdots && \ddots \\
+0 & 0 & \ldots & k^2 & -k^2 \\
+0 & 0 & \ldots & -k^2 & k^2 \\
+\end{bmatrix}
+$
+\end{center}
+
+Takisto platí, že:
+
+\begin{center}
+$
+h^- H =
+\begin{bmatrix}
+0 & 0 & \ldots & -1/2 & 1/2 \\
+\end{bmatrix}
+\begin{bmatrix}
+0 & 0 & \ldots & 0 & 0 \\
+0 & 0 & \ldots & 0 & 0 \\
+\vdots && \ddots \\
+0 & 0 & \ldots & 1/2 & -1/2 \\
+0 & 0 & \ldots & -1/2 & 1/2 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 & 0 & \ldots & -1/2 & 1/2 \\
+\end{bmatrix}
+= h^-
+$
+\end{center}
+
+\begin{center}
+$
+H {h^-}^T =
+\begin{bmatrix}
+0 & 0 & \ldots & 0 & 0 \\
+0 & 0 & \ldots & 0 & 0 \\
+\vdots && \ddots \\
+0 & 0 & \ldots & 1/2 & -1/2 \\
+0 & 0 & \ldots & -1/2 & 1/2 \\
+\end{bmatrix}
+\begin{bmatrix}
+0 \\
+0 \\
+\vdots \\
+-1/2 \\
+1/2 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\
+0 \\
+\vdots \\
+-1/2 \\
+1/2 \\
+\end{bmatrix}
+= {h^-}^T
+$
+\end{center}
+
+Dosaďme:
+
+\begin{center}
+$
+h^- M {h^-}^T h^T M^- h h^- M {h^-}^T = h^- M H M^- H M {h^-}^T = h^- H M M^- M H {h^-}^T = h^- H M H {h^-}^T = h^- M {h^-}^T
+$
+\end{center}
+
+Takže naozaj platí $h^T M^- h = (h^- M {h^-}^T)^-$, resp. $(h^T M^- h)^- = h^- M {h^-}^T$ . Hodnotu $h^- M {h^-}^T$ vieme vypočítať:
+
+\begin{center}
+$
+h^- M {h^-}^T = 
+\begin{bmatrix}
+0 & 0 & \ldots & -1/2 & 1/2 \\
+\end{bmatrix}
+\begin{bmatrix}
+&&& k & k \\
+&&& \vdots & \vdots \\
+&&& k & k \\
+k & \ldots & k & 2k^2 & 0 \\
+k & \ldots & k & 0 & 2k^2 \\
+\end{bmatrix}
+\begin{bmatrix}
+0 \\
+0 \\
+\vdots \\
+-1/2 \\
+1/2 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 & 0 & \ldots & -k^2 & k^2 \\
+\end{bmatrix}
+\begin{bmatrix}
+0 \\
+0 \\
+\vdots \\
+-1/2 \\
+1/2 \\
+\end{bmatrix}
+= k^2/2 + k^2/2 = k^2
+$
+\end{center}
+
+Hodnota $x^-$ pre skalár $x$ je rovná $1/x$, preto $h^T M^- h = (h^- M {h^-}^T)^- = 1/k^2$. $\square$
+
+\end{dokaz}
+
+\begin{com}
+Pri návrhoch nepárneho štvorcového rozmeru dôkaz zlyhá na rovnosti $HM = MH$.
+Infomačná matica $M$ totiž pri nepárnom rozmere nemá natoľko vhodnú štruktúru ako pri párnom.
+\end{com}
