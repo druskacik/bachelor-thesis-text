@@ -1,200 +1,73 @@
-\section{Lineárny regresný model}
-\label{linear regression}
- 
-Majme $n$ nameraných štatistických jednotiek tvaru $\{ y, x_1, \ldots, x_p \}$, 
-ktoré sme dostali ako výsledok experimentu. 
-Lineárny regresný model predpokladá, že medzi jednotlivými prvkami $y, x_1, ... x_p$ je lineárny vzťah. 
-Motiváciou za lineárnym regresným modelom je spravidla aproximovať tento lineárny vzťah.
+\section{Maticová príprava}
+\label{matrix algebra}
 
-Aproximácia lineárneho vzťahu nám v praxi ponúkne mechanizmus, 
-ktorým možno predikovať neznámu hodnotu $y$ na základe známych hodnôt $y, x_1, ... x_p$, 
-čo v reálnom živote predstavuje často sa vyskytujúci problém.
-
-Označme teda daný lineárny vzťah medzi zložkami nameranej štatistickej jednotky:
-
-\begin{center}
-$
-y_i = b_0 + b_1 x_{i_1} + … + b_p x_{i_p} + e_i = b^T x_i + e_i
-$
-\end{center}
-
-kde $\{ y_i, x_i \}$ je $i$-ta nameraná jednotka, $b$ je vektor lineárneho vzťahu
-a $e_i$ je chyba merania.
-
-Keď lineárne vzťahy pre každú z $n$ nameraných jednotiek zapíšeme maticovo, dostaneme vzťah
-\begin{align}
-\label{linear regression formula}
-y = Xb + e
-\end{align}
-
-kde $y = (y_1, y_2, \ldots, y_n)^T$, $e = (e_1, e_2, \ldots, e_n)^T$ a
-
-\begin{center}
-$
-X =
-\begin{bmatrix}
-1 & x_{11} & \ldots & x_{1p} \\
-\vdots & \vdots & \ddots & \\
-1 & x_{n1} & \ldots & x_{np} 
-\end{bmatrix}
-$
-\end{center}
-
-je matica tvaru $n \times p$. V praxi je $b$ neznámy vektor, ktorý sa snažíme odhadnúť.
-
-Na spočítanie odhadu $b$ sa používajú rôzne metódy,
-najčastejšie napr. metóda najmenších štvorcov alebo metóda maximálnej vierohodnosti.
-
-\subsection{Metóda najmenších štvorcov}
-
-Metódou najmenších štvorcov vypočítame odhad $\hat{b}$ parametra $b$ nasledovne:
-
-\begin{center}
-$
-\hat{b} = \underset{b \in \mathbb{R}^{p}}{\operatorname{arg min}} (y - Xb)^T C (y - Xb) =
-\underset{b \in \mathbb{R}^{p}}{\operatorname{arg min}} ||y - Xb||_{C^{-1}}^2
-$
-\end{center}
-
-kde $C$ je nejaká kladne definitná matica. 
-Ak $C = I$, potom minimalizujeme výraz
-$||y - Xb||_I^2 = ||y - Xb||^2 = \sum_{i=1}^n (y_i - X_{i \cdot } b)^2$
-, kde $X_{i \cdot }$ značí $i$-ty riadok matice $X$.
-V našej práci budeme predpokladať nezávislosť chýb a tiež homogenitu ich rozptylu, čo v praxi znamená,
-že skutočne budeme môcť dosadiť $C = I$.
-Preto maticu $C$ v ďalšom opise teórie spomínať nebudeme.
-
-Geometricky metódu najmenších štvorcov možno interpretovať ako projekciu vektora $y$ 
-na stĺpcový priestor matice $X$. Hľadáme teda taký vektor $\hat{b}$, 
-pre ktorý platí $X \hat{b} = Py$, kde $P$ je matica ortogonálnej projekcie na stĺpcový priestor $X$. 
-Z teórie lineárnej algebry vieme, že $P = X (X^T X)^- X^T$, kde znamienko $^-$ označuje $g$-inverziu.
-($g$-inverziou matice $A$ je taká matica $A^-$, pre ktorú platí $A A^- A = A$).
-
-Odhad $\hat{b}$ parametra $b$ je teda riešením rovnice
-\begin{align}
-\label{least squares solution}
-X b =  X (X^T X)^- X^T y
-\end{align}
-
-kde $P = X (X^T X)^- X^T$ je ortogonálny projektor na stĺpcový priestor $X$.
-
-Všetky riešenia tejto rovnice musia mať tvar:
-
-\begin{center}
-$
-(X^T X)^- X^T y
-$
-\end{center}
-
-kde použitá $g$-inverzia je ľubovoľná.
-
-Z uvedeného vyplýva, že v prípade regulárnosti $X^T X$ je odhad $\hat{b}$ parametra $b$ jednoznačný. 
-V našej práci budeme skúmať matice (modely) $X$, ktoré nie sú regulárne, 
-takže jednoznačný odhad $\hat{b}$ nebudeme schopní nájsť (čo v konečnom dôsledku ani nie je naším záujmom).
-Budeme odhadovať lineárnu funkciu zložiek vektora $b$, konkrétne $h^T b = h_1 b_1 + \ldots + h_p b_p$,
-ktorá býva jednoznačne odhadnuteľná aj v prípade singularity $X^T X$, ak vektor $h$ spĺňa určité podmienky. 
+V našej práci budeme často pracovať s poznatkami z lineárnej algebry, preto v krátkosti zhrnieme niektoré najdôležitejšie z nich.
 
 \begin{defin}
-\label{odhadnutelnost}
-Lineárnu kombináciu $h^T b$ zložiek vektora b nazývame odhadnuteľnou,
-ak pre ľubovoľné riešenia $b^*$ a $b^{**}$ rovnice (\ref{least squares solution}) platí $h^T b^* = h^T b^{**}$.
+Nech $A$ je ľubovolná matica typu $m \times n$. Potom symbolom $\mathcal{M}(A)$ označujeme stĺpcový priestor matice $A$, t. j.
+\begin{center}
+$
+\mathcal{M}(A) = \{ Au : u \in \mathbb{R}^n \}
+$
+\end{center}
+Symbolom $\mathcal{K}(A)$ označujeme jadro matice (kernel), t. j.
+\begin{center}
+$
+\mathcal{K}(A) = \{ v \in \mathbb{R}^n : Av = 0 \}
+$.
+\end{center}
 \end{defin}
 
-Je niekoľko ekvivalentných podmienok, ktoré stačia na to, aby $h^T b$ bolo odhadnuteľné. 
-Z nich spomenieme dve v nasledovnej vete, ktorú použijeme neskôr v našej práci.
-
-\begin{theorem}
-\label{veta1}
-$h^T b$ je odhadnuteľné, ak platia nasledovné ekvivalentné podmienky:
-\begin{enumerate}
-  \item $h \in \mathcal{M}(X^T)$
-  \item $h \in \mathcal{M}(X^T X)$,
-\end{enumerate}
-kde $\mathcal{M}$ označuje stĺpcový priestor matice.
-\end{theorem}
+\begin{lema}
+Platí
+\begin{center}
+$
+\mathcal{K}(A) = [\mathcal{M}(A)]^{\perp} \equiv \{ v \in \mathbb{R}^n : {\forall}_{u \in \mathcal{M}(A)} u^T v = 0 \}
+$
+\end{center}
+\end{lema}
 
 \begin{dokaz}
-Ukážeme, že ak $h \in \mathcal{M}(X^T)$ tak $h^T b$ je odhadnuteľné.
-Nech teda $h \in \mathcal{M}(X^T)$. Potom existuje také $u$, že $h = X^T u$.
-Preto pre ľubovoľné riešenie $\hat{b}$ rovnice (\ref{least squares solution}) platí:
+
 
 \begin{center}
 $
-h^T \hat{b} = u^T X \hat{b} = u^T P y
+x \in \mathcal{K}(A^T) \Leftrightarrow A^T x = 0 \Leftrightarrow {\forall}_v v^T A^T x = 0 \Leftrightarrow {\forall}_v (Av)^Tx = 0 \Leftrightarrow x \in [\mathcal{M}(A)]^{\perp}
 $
 \end{center}
+\end{dokaz}
 
-kde päta kolmice $Py$ je jednoznačne daná, preto aj $h^T \hat{b}$ je jednoznačne dané (bez ohľadu na voľbu $\hat{b}$).
-$h^T b$ je teda podľa definície (\ref{odhadnutelnost}) odhadnuteľné.
+\begin{lema}
+\label{o stlpcovych priestoroch}
+Nech $A$ je ľubovolná matica typu $m \times n$. Potom
+\begin{center}
+$\mathcal{M}(A^T) = \mathcal{M}(A^T A)$
+\end{center}
+\end{lema}
 
-Ekvivalencia podmienok (1) a (2) vyplýva z toho, že vo všeobecnosti platí, že $\mathcal{M}(X^T) = \mathcal{M}(X^T X)$.
-To ukážeme nasledovne:
+\begin{dokaz}
+Nech $z \in \mathcal{M}(A^T A)$. Potom existuje také $v$, že $z = A^T A v = A^T u$ pre $u = A v$.
+Preto $z \in \mathcal{M}(A^T)$ a teda $\mathcal{M}(A^T A) \subseteq \mathcal{M}(A^T)$.
 
-Nech $z \in \mathcal{M}(X^T X)$. Potom existuje také $v$, že $z = X^T X v = X^T u$ pre $u = X v$.
-Preto $z \in \mathcal{M}(X^T)$ a teda $\mathcal{M}(X^T X) \subseteq \mathcal{M}(X^T)$.
-
-Teraz nech $z \in \mathcal{K}(X^T X)$, kde $\mathcal{K}$ označuje nulový priestor. Potom:
+Teraz nech $z \in \mathcal{K}(A^T A)$. Potom:
 
 \begin{center}
 $
-X^T X z = (0, 0, \ldots, 0)^T \Rightarrow z^T X^T X z = 0 = (Xz)^T Xz = ||Xz|| \Rightarrow Xz = 0
+A^T A z = (0, 0, \ldots, 0)^T \Rightarrow z^T A^T A z = 0 = (Az)^T Az = ||Az|| \Rightarrow Az = 0
 $
 \end{center}
 
-Preto $z \in \mathcal{K}(X)$, a teda $\mathcal{K}(X^T X) \subseteq \mathcal{K}(X)$.
+Preto $z \in \mathcal{K}(A)$, a teda $\mathcal{K}(A^T A) \subseteq \mathcal{K}(A)$.
 Z lineárnej algebry ale vieme, že nulový priestor matice je kolmý doplnok jej riadkového priestoru,
 preto predošlý výraz vieme rozšíriť:
 \begin{center}
 $
-[\mathcal{M}(X^T X)]^{\perp} = \mathcal{K}(X^T X) \subseteq \mathcal{K}(X) = [\mathcal{M}(X^T)]^{\perp}
+[\mathcal{M}(A^T A)]^{\perp} = \mathcal{K}(A^T A) \subseteq \mathcal{K}(A) = [\mathcal{M}(A^T)]^{\perp}
 $
 \end{center}
 
-Odstránením $\perp$ sa inklúzia obráti, čo spolu s opačnou inklúziou vyššie dáva výsledok $\mathcal{M}(X^T) = \mathcal{M}(X^T X)$.
-$\square$
+Odstránením $\perp$ sa inklúzia obráti, čo spolu s opačnou inklúziou vyššie dáva výsledok $\mathcal{M}(A^T) = \mathcal{M}(A^T A)$.
 \end{dokaz}
-
-Ak $h$ patrí do riadkového priestoru matice $X$, potom existuje také $u$, že $h = X^T u$.
-Potom pre jednoznačný odhad $h^T \hat{b}$ vektora $h^T b$ platí:
-
-\begin{center}
-$h^T \hat{b} = u^T X \hat{b} = u^T P y = u^T X(X^T X)^- X^T y$
-\end{center}
-
-Vidíme, že v strede výrazu na pravej strane je projekčná matica $X(X^T X)^- X^T$, ktorá je vždy jednoznačne určená, 
-nezávisle na voľbe zovšeobecnenej $g$-inverzie v danom výraze.
-
-Výsledok predchádzajúcej vety je dôležitý pre našu prácu, pretože nebudeme skúmať odhady $b$,
-ale odhady niektorých lineárnych kombinácií zložiek vektora $b$, 
-konkrétne napr. rozdiely medzi parametrami.
-
-Odhad $\hat{b}$ parametra $b$, ako aj odhad $h^T \hat{b}$ parametra $h^T b$, sú lineárne nevychýlené odhady,
-ktorým prislúcha disperzia (TODO: popremýšľaj, či treba bližšie opísať lineárny nevychýlený odhad). 
-Neskôr v našej práci budeme hľadať také modely $X$, pri ktorých je disperzia odhadov $h^T b$ najmenšia možná,
-čo nám dá najlepší lineárny nevychýlený odhad. 
-Ak nami navrhované modely $X$ budú opisovať ten istý experiment, ten model $X$,
-pre ktorý disperzia odhadu $h^T b$ bude najmenšia, bude svojím spôsobom optimálny.
-
-K nájdeniu optimálneho modelu $X$ nám poslúži Gaussova-Markovova veta, 
-ktorá určuje minimálnu možnú disperziu odhadu $h^T b$.
-
-\begin{theorem}
-\label{gauss-markov}
-(Gaussova-Markovova) Nech $h$ je z riadkového priestoru $X$. 
-Potom minimálna možná disperzia lineárneho nevychýleného odhadu $h^T b$ je
-
-\begin{center}
-$
-m = h^T M^- h
-$
-\end{center}
-
-kde $M = X^T X$ je informačná matica parametra $b$ a $M^-$ je jej ľubovoľná $g$-inverzia.
-\end{theorem}
-
-\subsection{Maticová príprava}
-
-V našej práci budeme často pracovať s poznatkami z lineárnej algebry, preto v krátkosti zhrnieme niektoré najdôležitejšie z nich.
 
 \begin{defin}
 Nech $A$ je ľubovoľná matica. Potom matica $A^-$ taká, že
@@ -222,14 +95,3 @@ Keďže $Ax = y$ má riešenie, tak existuje také $x_0$, že $A x_0 = y$. Potom
 $A (A^- y) = A(A^- A x_0) = A x_0 = y$
 \end{center}
 \end{dokaz}
-
-\subsection{Metodika skúmania}
-
-Cieľom nášho skúmania bude nájsť ideálnu maticu vstupu do experimentu (konkrétny problém popíšeme v nasledujúcej kapitole). 
-Pokúsime sa vysloviť závery pre všeobecný prípad matice $m \times n$,
-avšak pre istý prvotný náhľad do problematiky problém popíšeme a preskúmame na menších rozmeroch, 
-konkrétne do rozmeru, do ktorého nám to umožní výpočtová technika. Pracovať budeme s programovacím jazykom \textit{python}.
-
-Od „preskúmania situácie“ do istého rozmeru si sľubujeme dôležité náhľady, 
-ktoré nám umožnia vysloviť závery a hypotézy pre všeobecný prípad $m \times n$. 
-Tie sa následne pokúsime dokázať matematickými metódami.
