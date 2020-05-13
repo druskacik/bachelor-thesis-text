@@ -17,7 +17,7 @@
 \usepackage{ifthen}
 
 \usepackage{xcolor}
-
+\usepackage{listings}
 \usepackage{enumitem}
 
 % \renewcommand{\familydefault}{\rmdefault}
@@ -57,7 +57,7 @@ plainpages=false
 \setlength{\parskip}{0in}
 \linespread{1.5}
 
-
+\setcounter{MaxMatrixCols}{20}
 
 \begin{document}
 
@@ -119,6 +119,18 @@ plainpages=false
     \addcontentsline{toc}{section}{Príloha A}
     \markboth{Príloha A}{Príloha A}
     \input{14 AppendixA}
+
+  \newpage
+  \section*{Príloha B} 
+    \addcontentsline{toc}{section}{Príloha B}
+    \markboth{Príloha B}{Príloha B}
+    \input{15 AppendixB}
+
+  \newpage
+  \section*{Príloha C} 
+    \addcontentsline{toc}{section}{Príloha C}
+    \markboth{Príloha C}{Príloha C}
+    \input{16 AppendixC}
     %\begin{comment}
 %\end{comment}
 \end{document}
