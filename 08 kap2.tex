@@ -1,33 +1,30 @@
 \section{Lineárny regresný model}
 \label{linear regression}
  
-Majme $n$ nameraných štatistických jednotiek tvaru $\{ y, x_1, \ldots, x_p \}$, 
-ktoré sme dostali ako výsledok experimentu. 
-Lineárny regresný model predpokladá, že medzi jednotlivými prvkami $y, x_1, ... x_p$ je lineárny vzťah. 
-Motiváciou za lineárnym regresným modelom je spravidla aproximovať tento lineárny vzťah.
+Lineárna regresia patrí v súčasnosti medzi najpoužívanejšie štatistické metódy. Aplikácie regresie možno nájsť v mnohých vedeckých odvetviach, 
+vrátane medicíny, biológie, ekonómie, sociológie atď. Ciele regresnej analýzy zväčša možno zaradiť do troch oblastí:
 
-Aproximácia lineárneho vzťahu nám v praxi ponúkne mechanizmus, 
-ktorým možno predikovať neznámu hodnotu $y$ na základe známych hodnôt $y, x_1, ... x_p$, 
-čo v reálnom živote predstavuje často sa vyskytujúci problém.
+\begin{enumerate}
+  \item nájsť vzťah medzi závislou premennou $y$ a regresormi $x_1, \ldots, x_n$,
+  \item odhadnúť $y$ na základe hodnôt $x_1, \ldots, x_n$,
+  \item preskúmať premenné $x_1, \ldots, x_n$ a identifikovať, ktoré z nich lepšie popisujú premennú $y$, resp. určiť, ktoré z nich majú na $y$ aký vplyv
+\end{enumerate}
 
-Označme teda daný lineárny vzťah medzi zložkami nameranej štatistickej jednotky:
+V našej práci sa budeme zaoberať treťou z pomenovaných oblastí.
 
-\begin{center}
-$
-y_i = b_0 + b_1 x_{i_1} + … + b_p x_{i_p} + e_i = b^T x_i + e_i
-$
-\end{center}
+Uvažujme teda lineáry regresný model
 
-kde $\{ y_i, x_i \}$ je $i$-ta nameraná jednotka, $b$ je vektor lineárneho vzťahu
-a $e_i$ je chyba merania.
-
-Keď lineárne vzťahy pre každú z $n$ nameraných jednotiek zapíšeme maticovo, dostaneme vzťah
 \begin{align}
 \label{linear regression formula}
-y = Xb + e
+y = Xb + \varepsilon
 \end{align}
 
-kde $y = (y_1, y_2, \ldots, y_n)^T$, $e = (e_1, e_2, \ldots, e_n)^T$ je náhodná chyba a
+Na ľavej strane $y$ je $n \times 1$ vektor pozorovaných náhodných premenných. Vektor $y$ nazývame \emph{závislou} premennou.
+Na pravej strane $X$ je matica plánu, $b$ je náhodný vektor lineárneho vzťahu a $\varepsilon$ je náhodná chyba.
+$X$ vo všeobecnosti môže, ale nemusí byť náhodná premenná. Pre účely našej práce budeme narábať s fixnou (známou) maticou $X$,
+čo zohľadníme aj v ďalších teoretických základoch v tejto kapitole.
+
+Nech teda $X$ je známa matica $n \times p$ tvaru:
 
 \begin{center}
 $
@@ -40,10 +37,22 @@ X =
 $
 \end{center}
 
-je matica tvaru $n \times p$. V praxi je $b$ neznámy vektor, ktorý sa snažíme odhadnúť.
+Rovnica (\ref{linear regression formula}) nám určuje $n$ lineárnych vzťahov tvaru:
 
-Na spočítanie odhadu $b$ sa používajú rôzne metódy,
-najčastejšie napr. metóda najmenších štvorcov alebo metóda maximálnej vierohodnosti.
+\begin{center}
+$
+y_i = b_0 + b_1 x_{i1} + … + b_p x_{ip} + {\varepsilon}_i = b^T x_i + {\varepsilon}_i
+$
+\end{center}
+
+pre $y = (y_1, y_2, \ldots, y_n)^T$, $b = (b_1, b_2, \ldots, b_p)^T$ a $\varepsilon = ({\varepsilon}_1, {\varepsilon}_2, \ldots, {\varepsilon}_n)^T$.
+
+Ďalej budeme predpokladať $E(\varepsilon) = \textbf{0}$, $Var[\varepsilon] = {\sigma}^2 I$,
+t. j jednotlivé ${\varepsilon}_i, {\varepsilon}_j$ sú nezávislé a rovnako rozdelené.
+Pre jednoduchosť takisto predpokladajme, že ${\sigma}^2 = 1$.
+
+V praxi je $b$ neznámy vektor, ktorý sa snažíme odhadnúť na základe nameraných hodnôt $y$.
+Na spočítanie odhadu sa používajú rôzne metódy, najčastejšie napr. metóda najmenších štvorcov alebo metóda maximálnej vierohodnosti.
 
 \subsection{Metóda najmenších štvorcov}
 
@@ -60,15 +69,13 @@ kde $C$ je nejaká kladne definitná matica.
 Ak $C = I$, potom minimalizujeme výraz
 $||y - Xb||_I^2 = ||y - Xb||^2 = \sum_{i=1}^n (y_i - X_{i \cdot } b)^2$
 , kde $X_{i \cdot }$ značí $i$-ty riadok matice $X$.
-V našej práci budeme predpokladať nezávislosť chýb a tiež homogenitu ich rozptylu, čo v praxi znamená,
-že skutočne budeme môcť dosadiť $C = I$.
+Keďže sme predpokladali nezávislosť chýb a tiež homogenitu ich rozptylu, skutočne je pre nás najvýhodnejšie dosadiť $C = I$.
 Preto maticu $C$ v ďalšom opise teórie spomínať nebudeme.
 
 Geometricky metódu najmenších štvorcov možno interpretovať ako projekciu vektora $y$ 
 na stĺpcový priestor matice $X$. Hľadáme teda taký vektor $\hat{b}$, 
 pre ktorý platí $X \hat{b} = Py$, kde $P$ je matica ortogonálnej projekcie na stĺpcový priestor $X$. 
-Z teórie lineárnej algebry vieme, že $P = X (X^T X)^- X^T$, kde znamienko $^-$ označuje $g$-inverziu.
-($g$-inverziou matice $A$ je taká matica $A^-$, pre ktorú platí $A A^- A = A$).
+Z vety (\ref{ortogonalny projektor na maticu}) vieme, že $P = X (X^T X)^- X^T$.
 
 Odhad $\hat{b}$ parametra $b$ je teda riešením rovnice
 \begin{align}
@@ -145,8 +152,38 @@ Výsledok predchádzajúcej vety je dôležitý pre našu prácu, pretože nebud
 ale odhady niektorých lineárnych kombinácií zložiek vektora $b$, 
 konkrétne napr. rozdiely medzi parametrami.
 
-Odhad $\hat{b}$ parametra $b$, ako aj odhad $h^T \hat{b}$ parametra $h^T b$, sú lineárne nevychýlené odhady,
-ktorým prislúcha disperzia (TODO: popremýšľaj, či treba bližšie opísať lineárny nevychýlený odhad). 
+\subsection{Gaussova-Markovova veta}
+
+V predchádzajúcej časti sme ukázali, že ak matica je matica plánu $X$ regulárna,
+jej odhad metódou najmenších štvorcov je rovný
+
+\begin{center}
+$
+\hat{b} = \underset{b \in \mathbb{R}^{p}}{\operatorname{arg min}} ||y - Xb||^2 = (X^T X)^{-1} X^T y
+$
+\end{center}
+
+Pre strednú hodnotu odhadu $\hat{b}$ teda platí:
+
+\begin{center}
+$
+E[\hat{b}] = E[(X^T X)^{-1} X^T y] = (X^T X)^{-1} X^T E[y] = (X^T X)^- X^T E[Xb + \varepsilon] = (X^T X)^- X^T X b = b
+$
+\end{center}
+
+To znamená, že $\hat{b}$ je lineárnym nevychýleným odhadom parametra $b$.
+Pre varianciu $\hat{b}$ dostávame:
+
+\begin{center}
+$
+Var[\hat{b}] = Var[(X^T X)^{-1} X^T y] = (X^T X)^{-1} X^T Var[Xb + \varepsilon] X (X^T X)^{-1} =
+(X^T X)^{-1} X^T Var[\varepsilon] X (X^T X)^{-1} = (X^T X)^{-1} X^T I X (X^T X)^{-1} = (X^T X)^{-1}
+$.
+\end{center}
+
+Hodnota disperzie $(X^T X)^{-1}$ je v určitom zmysle najmenšia možná, t. j. $\hat{b}$ je najlepší lineárne nevychýlený odhad.
+Podobné tvrdenie platí pre odhad $h^T \hat{b}$ parametra $h^T b$, ktorý je takisto lineárne nevychýlený. Upresníme to v nasledujúcej vete.
+
 Neskôr v našej práci budeme hľadať také modely $X$, pri ktorých je disperzia odhadov $h^T b$ najmenšia možná,
 čo nám dá najlepší lineárny nevychýlený odhad. 
 Ak nami navrhované modely $X$ budú opisovať ten istý experiment, ten model $X$,
@@ -162,9 +199,16 @@ Potom minimálna možná disperzia lineárneho nevychýleného odhadu $h^T b$ je
 
 \begin{center}
 $
-m = h^T M^- h
+m = Var[h^T \hat{b}] = h^T M^- h
 $
 \end{center}
 
-kde $M = X^T X$ je informačná matica parametra $b$ a $M^-$ je jej ľubovoľná $g$-inverzia.
+kde $M = X^T X$ je informačná matica parametra $b$ a $M^-$ je jej ľubovoľná $g$-inverzia
+a $\hat{b}$ je ľubovoľné riešenie rovnice
+
+\begin{center}
+$
+(X^T X)b = X^T y
+$
+\end{center}
 \end{theorem}
