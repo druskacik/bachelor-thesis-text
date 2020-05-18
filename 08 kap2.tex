@@ -20,8 +20,8 @@ y = Xb + \varepsilon
 \end{align}
 
 Na ľavej strane $y$ je $n \times 1$ vektor pozorovaných náhodných premenných. Vektor $y$ nazývame \emph{závislou} premennou.
-Na pravej strane $X$ je matica plánu, $b$ je náhodný vektor lineárneho vzťahu a $\varepsilon$ je náhodná chyba.
-$X$ vo všeobecnosti môže, ale nemusí byť náhodná premenná. Pre účely našej práce budeme narábať s fixnou (známou) maticou $X$,
+Na pravej strane $X$ je matica plánu, $b$ je neznámy parameter regresného modelu a $\varepsilon$ je náhodná chyba.
+$X$ vo všeobecnosti môže, ale nemusí byť náhodná matica. Pre účely našej práce budeme narábať s fixnou (známou) maticou $X$,
 čo zohľadníme aj v ďalších teoretických základoch v tejto kapitole.
 
 Nech teda $X$ je známa matica $n \times p$ tvaru:
@@ -69,7 +69,8 @@ kde $C$ je nejaká kladne definitná matica.
 Ak $C = I$, potom minimalizujeme výraz
 $||y - Xb||_I^2 = ||y - Xb||^2 = \sum_{i=1}^n (y_i - X_{i \cdot } b)^2$
 , kde $X_{i \cdot }$ značí $i$-ty riadok matice $X$.
-Keďže sme predpokladali nezávislosť chýb a tiež homogenitu ich rozptylu, skutočne je pre nás najvýhodnejšie dosadiť $C = I$.
+Keďže sme predpokladali nezávislosť chýb a tiež homogenitu ich rozptylu, je pre nás najvýhodnejšie dosadiť $C = I$,
+čo možno dokázať pomocou Gaussovej-Markovovej vety, ktorú uvedieme neskôr.
 Preto maticu $C$ v ďalšom opise teórie spomínať nebudeme.
 
 Geometricky metódu najmenších štvorcov možno interpretovať ako projekciu vektora $y$ 
@@ -96,7 +97,7 @@ $
 kde použitá $g$-inverzia je ľubovoľná.
 
 Z uvedeného vyplýva, že v prípade regulárnosti $X^T X$ je odhad $\hat{b}$ parametra $b$ jednoznačný. 
-V našej práci budeme skúmať matice (modely) $X$, ktoré nie sú regulárne, 
+V našej práci budeme skúmať matice $X$, ktoré nie sú regulárne, 
 takže jednoznačný odhad $\hat{b}$ nebudeme schopní nájsť (čo v konečnom dôsledku ani nie je naším záujmom).
 Budeme odhadovať lineárnu funkciu zložiek vektora $b$, konkrétne $h^T b = h_1 b_1 + \ldots + h_p b_p$,
 ktorá býva jednoznačne odhadnuteľná aj v prípade singularity $X^T X$, ak vektor $h$ spĺňa určité podmienky. 
@@ -150,7 +151,7 @@ nezávisle na voľbe zovšeobecnenej $g$-inverzie v danom výraze.
 
 Výsledok predchádzajúcej vety je dôležitý pre našu prácu, pretože nebudeme skúmať odhady $b$,
 ale odhady niektorých lineárnych kombinácií zložiek vektora $b$, 
-konkrétne napr. rozdiely medzi parametrami.
+konkrétne napr. rozdiely medzi nimi.
 
 \subsection{Gaussova-Markovova veta}
 
@@ -167,7 +168,7 @@ Pre strednú hodnotu odhadu $\hat{b}$ teda platí:
 
 \begin{center}
 $
-E[\hat{b}] = E[(X^T X)^{-1} X^T y] = (X^T X)^{-1} X^T E[y] = (X^T X)^- X^T E[Xb + \varepsilon] = (X^T X)^- X^T X b = b
+E[\hat{b}] = E[(X^T X)^{-1} X^T y] = (X^T X)^{-1} X^T E[y] = (X^T X)^- X^T E[Xb + \varepsilon] = (X^T X)^{-1} X^T X b = b
 $
 \end{center}
 
@@ -181,7 +182,7 @@ Var[\hat{b}] = Var[(X^T X)^{-1} X^T y] = (X^T X)^{-1} X^T Var[Xb + \varepsilon] 
 $.
 \end{center}
 
-Hodnota disperzie $(X^T X)^{-1}$ je v určitom zmysle najmenšia možná, t. j. $\hat{b}$ je najlepší lineárne nevychýlený odhad.
+Veľkosť kovariančnej matice $(X^T X)^{-1}$ je v určitom zmysle najmenšia možná, t. j. $\hat{b}$ je najlepší lineárne nevychýlený odhad.
 Podobné tvrdenie platí pre odhad $h^T \hat{b}$ parametra $h^T b$, ktorý je takisto lineárne nevychýlený. Upresníme to v nasledujúcej vete.
 
 Neskôr v našej práci budeme hľadať také modely $X$, pri ktorých je disperzia odhadov $h^T b$ najmenšia možná,

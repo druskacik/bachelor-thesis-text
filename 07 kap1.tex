@@ -8,7 +8,7 @@ Nech $A$ je ľubovoľná matica typu $m \times n$. Potom symbolom $\mathcal{M}(A
 \begin{center}
 $
 \mathcal{M}(A) = \{ Au : u \in \mathbb{R}^n \}
-$
+$.
 \end{center}
 Symbolom $\mathcal{K}(A)$ označujeme jadro matice (kernel), t. j.
 \begin{center}
@@ -22,8 +22,8 @@ $.
 Platí
 \begin{center}
 $
-\mathcal{K}(A) = [\mathcal{M}(A)]^{\perp} \equiv \{ v \in \mathbb{R}^n : {\forall}_{u \in \mathcal{M}(A)} u^T v = 0 \}
-$
+\mathcal{K}(A^T) = [\mathcal{M}(A)]^{\perp} \equiv \{ v \in \mathbb{R}^m : {\forall}_{u \in \mathcal{M}(A)} u^T v = 0 \}
+$.
 \end{center}
 \end{lema}
 
@@ -33,7 +33,8 @@ $
 \begin{center}
 $
 x \in \mathcal{K}(A^T) \Leftrightarrow A^T x = 0 \Leftrightarrow {\forall}_v v^T A^T x = 0 \Leftrightarrow {\forall}_v (Av)^Tx = 0 \Leftrightarrow x \in [\mathcal{M}(A)]^{\perp}
-$
+$.
+$\square$
 \end{center}
 \end{dokaz}
 
@@ -41,20 +42,20 @@ $
 \label{o stlpcovych priestoroch}
 Nech $A$ je ľubovoľná matica typu $m \times n$. Potom
 \begin{center}
-$\mathcal{M}(A^T) = \mathcal{M}(A^T A)$
+$\mathcal{M}(A^T) = \mathcal{M}(A^T A)$.
 \end{center}
 \end{lema}
 
 \begin{dokaz}
 Nech $z \in \mathcal{M}(A^T A)$. Potom existuje také $v$, že $z = A^T A v = A^T u$ pre $u = A v$.
-Preto $z \in \mathcal{M}(A^T)$ a teda $\mathcal{M}(A^T A) \subseteq \mathcal{M}(A^T)$.
+Preto $z \in \mathcal{M}(A^T)$, a teda $\mathcal{M}(A^T A) \subseteq \mathcal{M}(A^T)$.
 
 Teraz nech $z \in \mathcal{K}(A^T A)$. Potom:
 
 \begin{center}
 $
 A^T A z = (0, 0, \ldots, 0)^T \Rightarrow z^T A^T A z = 0 = (Az)^T Az = ||Az|| \Rightarrow Az = 0
-$
+$.
 \end{center}
 
 Preto $z \in \mathcal{K}(A)$, a teda $\mathcal{K}(A^T A) \subseteq \mathcal{K}(A)$.
@@ -63,16 +64,16 @@ preto predošlý výraz vieme rozšíriť:
 \begin{center}
 $
 [\mathcal{M}(A^T A)]^{\perp} = \mathcal{K}(A^T A) \subseteq \mathcal{K}(A) = [\mathcal{M}(A^T)]^{\perp}
-$
+$.
 \end{center}
 
-Odstránením $\perp$ sa inklúzia obráti, čo spolu s opačnou inklúziou vyššie dáva výsledok $\mathcal{M}(A^T) = \mathcal{M}(A^T A)$.
+Odstránením $\perp$ sa inklúzia obráti, čo spolu s opačnou inklúziou vyššie dáva výsledok $\mathcal{M}(A^T) = \mathcal{M}(A^T A)$.$\square$
 \end{dokaz}
 
 \begin{defin}
 Nech $A$ je ľubovoľná matica. Potom matica $A^-$ taká, že
 \begin{center}
-$A A^- A = A$
+$A A^- A = A$,
 \end{center}
 sa nazýva $g$-inverzia (alebo pseudoinverzia) matice $A$.
 \end{defin}
@@ -92,7 +93,7 @@ Nech rovnica $Ax = y$ má riešenie a nech $A^-$ je ľubovoľná $g$-inverzia. P
 \begin{dokaz}
 Keďže $Ax = y$ má riešenie, tak existuje také $x_0$, že $A x_0 = y$. Potom 
 \begin{center}
-$A (A^- y) = A(A^- A x_0) = A x_0 = y$
+$A (A^- y) = A(A^- A x_0) = A x_0 = y$.$\square$
 \end{center}
 \end{dokaz}
 
@@ -117,24 +118,24 @@ keď platia nasledovné podmienky:
 \end{defin}
 
 Z vlastností a) a b) vyplýva, že $P^2 = P$, t. j. matica $P$ je idempotentná.
-Poznamenávame, že aj naopak, ak matica $P$ je idempotentná a definujeme $V = \mathcal{M}(P)$, tak $P$ má vlastnosti a) a b) z predošlej definície.
+Poznamenávame, že aj naopak, ak matica $P$ je idempotentná a definujeme $\mathcal{V} = \mathcal{M}(P)$, tak $P$ má vlastnosti a) a b) z predošlej definície.
 
-Takto definovaný projektor nemusí byť ortogonálny, t. j. nezobrazuje vektory na k nim najbližší vektor z priestoru $V$.
+Takto definovaný projektor nemusí byť ortogonálny, t. j. nezobrazuje vektory na k nim najbližší vektor z priestoru $\mathcal{V}$.
 Formálne ortogonalitu definujeme nasledovne.
 
 \begin{defin}
 \label{ortogonalny projektor}
-Projektor $P$ na lineárny podpriestor $V$ je ortogonálny vzhľadom na skalárny súčin $\langle \cdot,\cdot \rangle$,
+Projektor $P$ na lineárny podpriestor $\mathcal{V}$ je ortogonálny vzhľadom na skalárny súčin $\langle \cdot,\cdot \rangle$,
 ak $\langle x, Py \rangle = \langle Px, y \rangle$ pre všetky $x, y \in \mathbb{R}^n$.
 \end{defin}
 
 \begin{theorem}
-Nech $F \in \mathbb{R}^{m \times m}$, $m > n$ má plnú hodnosť a nech $\rangle a, b \langle = a^T b$ je skalárny súčin v $\mathbb{R}^m$.
+Nech $F \in \mathbb{R}^{m \times n}$, $m > n$ má plnú hodnosť a nech $\langle a, b \rangle = a^T b$ je skalárny súčin v $\mathbb{R}^m$.
 Potom ortogonálny projektor na $\mathcal{M}(F)$ je
 \begin{center}
 $
 P = F(F^T F)^{-1} F^T
-$
+$.
 \end{center}
 \end{theorem}
 
@@ -143,17 +144,17 @@ Ukážeme, že $P$ spĺňa vlastnosti z definície lineárneho projektora, aj po
 \begin{center}
 $
 {\forall}_{x \in \mathbb{R}^m} Px = F(F^T F)^{-1} F^T x = Fu \in \mathcal{M}(F)
-$
+$,
 \end{center}
 \begin{center}
 $
 {\forall}_{l = Fu \in \mathcal{M}(F)} Pl = P(Fu) = F(F^T F)^{-1} F^T F u = Fu = l
-$
+$,
 \end{center}
 \begin{center}
 $
 {\forall}_{x, y \in \mathbb{R}^m} \langle x, Py \rangle = x^T F(F^T F)^{-1} F^T y = x^T [F (F^T F)^{-1} F^T]^T y = x^T P^T y = \langle Px, y \rangle
-$
+$.$\square$
 \end{center}
 \end{dokaz}
 
