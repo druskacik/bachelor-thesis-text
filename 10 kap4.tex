@@ -20,10 +20,9 @@ Všetky tieto efekty uvažujeme ako neznáme parametere modelu.
 Návrh teda možno reprezentovať binárnou maticou 
 (alebo bipartitným grafom, čo opíšeme neskoršie v našej práci).
 
-Cieľom experimentu je odhadnúť rozdiel medzi dvoma efektmi (treatmentami).
+Cieľom experimentu je odhadnúť rozdiel medzi efektmi daných dvoch ošetrení.
 Cieľom hľadania optimálneho modelu je nájsť taký návrh, pri ktorom
 rozptyl Gauss-Markovovho odhadu rozdielu medzi efektmi dvojice ošetrení (t.j. odhadu kontrastu ošetrení) bude čo najmenší.
-(Použijeme pri tom Gaussovu-Markovovu vetu z predošlej kapitoly.)
 
 Pre maticu typu $m \times n$ dostaneme teda $mn$ vzťahov tvaru:
 
@@ -33,11 +32,11 @@ y_{ij} = a_i + b_j + t + e_{ij}
 $
 \end{center}
 
-$i = 1, \ldots, m$; $j = 1, \ldots, n$; $t$ je $t_0$ alebo $t_1$ podľa hodnoty na $ij$-tej pozícii matice a $e_{ij}$ je chyba.
+$i = 1, \ldots, m$; $j = 1, \ldots, n$; $a_i$ je efekt $i$-tej úrovne faktora $A$ a $b_j$ efekt $j$-tej úrovne faktora $B$; $t$ je $t_0$ alebo $t_1$ podľa hodnoty na $ij$-tej pozícii matice a $e_{ij}$ je chyba.
 Budeme odhadovať rozdiel medzi $t_0$ a $t_1$.
 
 Z návrhu modelu v podobe binárnej matice tvaru $m \times n$ vytvoríme lineárny regresný model
-s maticou tvaru $mn \times (m + n + 2)$, pretože máme $mn$ meraní závislých od $m + n + 2$ premenných.
+s maticou tvaru $mn \times (m + n + 2)$, pretože máme $mn$ meraní závislých od $m + n + 2$ parametrov.
 
 Príklad:
 
@@ -45,6 +44,7 @@ Maticu návrhu experimentu
 
 \begin{align}
 \label{model matrix}
+B =
 \begin{bmatrix}
 1 & 0 & 1 \\
 0 & 1 & 0 \\
@@ -56,6 +56,7 @@ prepíšeme ako:
 
 \begin{align}
 \label{linear regression matrix}
+X =
 \begin{bmatrix}
 1 & 0 & 0 & 1 & 0 & 0 & 1 & 0 \\
 1 & 0 & 0 & 0 & 1 & 0 & 0 & 1 \\
@@ -72,11 +73,10 @@ prepíšeme ako:
 Ako presne sme pri generovaní matice postupovali?
 Každý riadok reprezentuje jednu z hodnôt v matici (\ref{model matrix}), preto máme dokopy $3 \times 3 = 9$ riadkov.
 Prvé tri stĺpce reprezentujú riadok, v ktorom sa hodnota nachádza, ďalšie tri reprezentujú stĺpec.
-Vo všeocenosti $ij$-tu pozíciu matice typu $m \times n$ reprezentuje riadok,
+Vo všeobecnosti $ij$-tu pozíciu matice typu $m \times n$ reprezentuje riadok,
 ktorý má jednotky na $i$-tej a $(m + j)$-tej pozícii.
 Posledné dva stĺpce sú určené tým, či je hodnota $0$ alebo $1$.
 
-Označme vo všeobecnosti maticu modelu (\ref{model matrix}) $B$ a maticu lineárneho zobrazenia (\ref{linear regression matrix}) $X$. 
 Predpokladáme lineárne vzťahy, preto dostávame lineárnu regresiu
 
 \begin{center}
@@ -88,7 +88,7 @@ $
 kde $y$ je vektor dát nameraných v experimente, $b$ je vektor neznámych koeficientov a 
 $e = (e_{11}, e_{12}, e_{13}, \ldots, e_{m1}, \dots, e_{mn})^T$ je vektor chýb merania. 
 Uvedomme si, že v našej práci nebudeme pracovať s konkrétnym vektorom $y$; 
-snažíme sa totiž navrhnúť maticu modelu $B$ (a z nej vyplývajúcu maticu $X$) ešte pred tým, než experiment vykonáme.
+snažíme sa totiž navrhnúť maticu návrhu experimentu $B$ (a z nej vyplývajúcu maticu modelu $X$) ešte pred tým, než experiment vykonáme.
 
 Naším cieľom teraz bude odhadnúť rozdiel medzi efektmi $t_0$ a $t_1$, resp. zistiť, 
 aká môže byť disperzia tohto odhadu pri danej matici návrhu $B$. 
@@ -117,11 +117,11 @@ keď vektor $h = (0, 0, 0, \ldots, +1, -1)^T$ patrí do stĺpcového priestoru m
 
 Označme $M = X^T X$, túto maticu budeme nazývať informačnou maticou. 
 Ak $h$ patrí do stĺpcového priestoru $M$, potom existuje taký vektor $v$, že $M v = h$. 
-Na základe vety (\ref{veta3}) vieme, že ak toto riešenie existuje, tak sa rovná $M^- h$, pričom zvolená $g$-inverzia môže byť ľubovoľná.
+Na základe vety (\ref{veta4}) vieme, že ak toto riešenie existuje, tak sa rovná $M^- h$, pričom zvolená $g$-inverzia môže byť ľubovoľná.
 Preto na zistenie, či $h$ patrí do stĺpcového priestoru $M = X^T X$ stačí overiť platnosť rovnosti $M(M^- h) = h$. 
 
 Demonštrujme algoritmus na maticiach rozmeru $3 \times 3$. Existuje $2^9 = 512$ binárnych matíc typu $3 \times 3$, 
-a keď sme na nich rozbehli daný algoritmus, dospeli sme k zisteniu, že pri $12$ z nich hodnota $h^T b$ NIE JE odhadnuteľná.
+a keď sme na nich rozbehli daný algoritmus, dospeli sme k zisteniu, že pri $12$ z nich hodnota $h^T b$ \emph{nie je} odhadnuteľná.
 To znamená, že optimálne matice návrhu budeme hľadať v zvyšných $500$ maticiach.
 
 Ako vyzerajú matice, pri ktorých $h^T b$ nie je odhadnuteľné? Zoznam všetkých sa nachádza v Prílohe A, tu uvedieme $3$ z nich:
@@ -152,7 +152,7 @@ $
 
 Týmto spôsobom sme pri našom výskume získali zoznam matíc, pri ktorých $h^T b$ nie je odhadnuteľné, až do rozmeru $4 \times 5$.
 Zoznam všetkých sa nachádza v GitHub repozitári spomenutom v úvode. 
-Na základe podobnosti matíc daného typu sme prišli s nasledovnou hypotézou.
+Na základe podobnosti matíc daného typu sme odvodili nasledovné tvrdenie.
 
 \begin{prop}
 \label{statement 1}
@@ -210,7 +210,7 @@ Týmto spôsobom pokryjeme všetky riadky matice $X$, vďaka čomu dospejeme k z
 že z riadkov $X$ nie je možné lineárnou kombináciou zostrojiť vektor $h$.
 To nám dáva spor s predpokladom $h \in \mathcal{M}(X^T)$.
 Preto nemôže platiť, že všetky riadky matice $B$ obsahujú buď samé $0$ alebo samé $1$,
-a platí opačné tvdenie, t.j v $B$ existuje aspoň jeden riadok taký, ktorý obsahuje $0$ aj $1$.
+a platí opačné tvrdenie, t.j v $B$ existuje aspoň jeden riadok taký, ktorý obsahuje $0$ aj $1$.
 
 Rovnakou úvahou pre stĺpce $B$ dospejeme k záveru,
 že $B$ musí takisto obsahovať aspoň jeden stĺpec obsahujúci $0$ aj $1$.
@@ -261,7 +261,7 @@ Našli sme teda lineárnu kombináciu riadkov $X$, ktorá nám dala vektor $h$, 
 
 Uvedomme si, že toto tvrdenie dáva intuitívne význam. Ak by sme totiž organizovali experiment napr. podľa druhej matice so zoznamu vyššie, 
 tak by sme nevedeli rozlíšiť, či sú pozorované rozdiely medzi meraniami zodpovedajúcimi prvým dvom stĺpcom a posledným stĺpcom spôsobené rozdielom medzi efektami ošetrení, 
-alebo rozdielom medzi efektami ošetrovateľov 1 a 2 v porovnaní s ošetrovateľom 3. (Bavíme sa o reprezentácii modelu, kde riadky reprezentujú pacientov a stĺpce ošetrovateľov.)
+alebo rozdielom medzi efektami ošetrovateľov 1 a 2 v porovnaní s ošetrovateľom 3. (Používame reprezentáciu modelu, kde riadky reprezentujú dobrovoľníkov a stĺpce liečívá.)
 
 \subsection{Ekvivalencie binárnych matíc}
 
@@ -279,10 +279,10 @@ Matice, ktoré možno spermutovať jednu na druhú riadkovými a stĺpcovými pe
 \end{hypoteza}
 
 Hypotézu uvádzame bez matematického dôkazu, ukážeme však, že ak naša interpretácia modelu reprezentovaného binárnou maticou je správna,
-hypotéza musí platíť. Model sme interpretovali ako zoznam trojíc pacient, lekár, spôsob prijatia lieku, 
-pričom pacienti zodpovedali riadkom, lekári stĺpcom, a spôsob prijatia lieku hodnotám v matici. 
-Uvedomme si, že o lekároch ani pacientoch pri výpočte rozptylu nič nevieme. 
-Permutáciám riadkov a stĺpcov preto zodpovedá akési „preznačenie“ jednotlivých lekárov a pacientov, 
+hypotéza musí platíť. Model sme interpretovali ako zoznam trojíc dobrovoľník, liečivo, spôsob jeho prijatia, 
+pričom dobrovoľníci zodpovedali riadkom, liečivá stĺpcom, a spôsob prijatia liečiva hodnotám v matici. 
+Uvedomme si, že o efektoch dobrovoľníkov ani liečiv pri výpočte rozptylu nič nevieme. 
+Permutáciám riadkov a stĺpcov preto zodpovedá akési „preznačenie“ jednotlivých dobrovoľníkov a liečiv, 
 vôbec to ale nezmení štruktúru experimentu. Pripomeňme si, že rozptyl Gaussovho-Markovovho odhadu rozdielu medzi efektami
 počítame pred vykonaním experimentu a nameraním dát.
 
@@ -355,7 +355,7 @@ $
 $
 \end{center}
 
-Ďalšie matice sa nachádzajú v prílohe B. Na základe týchto návrhov sme pre štvorcové matice prišli s nasledovnou hypotézou.
+Ďalšie matice sa nachádzajú v prílohe B. Na základe týchto návrhov sme pre štvorcové matice odvodili nasledovnú hypotézu.
 
 \begin{hypoteza}
 \label{hypoteza1}
@@ -817,11 +817,11 @@ Infomačná matica $M$ totiž pri nepárnom rozmere nemá natoľko vhodnú štru
 \subsection{Reprezentácia bipartitným grafom}
 
 Ako sme avizovali na začiatku kapitoly, návrh nami opisovaného experimentu možno reprezentovať aj bipartitným grafom.
-Tak ako v maticovej reprezentácii zodpovedali riadky pacientom a stĺpce ošetrovateľom, podobne v bipartitnom grafe budú pacienti 
-zodpovedať jednej partícii a ošetrovatelia druhej. Hrana sa medzi dvoma bodmi nachádza práve vtedy, keď pozícii tejto dvojice v matici návrhu zodpovedá nami zvolený efekt.
-Grafy zodpovedajúce jednému či druhému efektu sú navzájom disjunktné a ich zjednotením získame kompletný bipartitný graf, t. j tieto dva grafy sú si navzájom doplnkami.
+Tak ako v maticovej reprezentácii zodpovedali riadky dobrovoľníkom a stĺpce liečivám, podobne v bipartitnom grafe budú dobrovoľníci 
+zodpovedať jednej partícii a liečivá druhej. Hrana sa medzi dvoma bodmi nachádza práve vtedy, keď pozícii tejto dvojice v matici návrhu zodpovedá nami zvolený spôsob ošetrenia.
+Grafy zodpovedajúce jednému či druhému ošetreniu sú navzájom disjunktné a ich zjednotením získame kompletný bipartitný graf, t. j tieto dva grafy sú si navzájom doplnkami.
 
-Napríklad nasledovnej matici návrhu
+Napríklad nasledovnej matici návrhu experimentu
 
 \begin{center}
 $
