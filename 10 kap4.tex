@@ -813,3 +813,99 @@ Hodnota $x^-$ pre skalár $x$ je rovná $1/x$, preto $h^T M^- h = (h^- M {h^-}^T
 Pri návrhoch nepárneho štvorcového rozmeru dôkaz zlyhá na rovnosti $HM = MH$.
 Infomačná matica $M$ totiž pri nepárnom rozmere nemá natoľko vhodnú štruktúru ako pri párnom.
 \end{com}
+
+\subsection{Reprezentácia bipartitným grafom}
+
+Ako sme avizovali na začiatku kapitoly, návrh nami opisovaného experimentu možno reprezentovať aj bipartitným grafom.
+Tak ako v maticovej reprezentácii zodpovedali riadky pacientom a stĺpce ošetrovateľom, podobne v bipartitnom grafe budú pacienti 
+zodpovedať jednej partícii a ošetrovatelia druhej. Hrana sa medzi dvoma bodmi nachádza práve vtedy, keď pozícii tejto dvojice v matici návrhu zodpovedá nami zvolený efekt.
+Grafy zodpovedajúce jednému či druhému efektu sú navzájom disjunktné a ich zjednotením získame kompletný bipartitný graf, t. j tieto dva grafy sú si navzájom doplnkami.
+
+Napríklad nasledovnej matici návrhu
+
+\begin{center}
+$
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+\end{bmatrix}
+$
+\end{center}
+
+priradíme dva grafy, jeden zodpovedajúci efektu $1$:
+
+\begin{center}
+
+\begin {tikzpicture}[-latex, auto, node distance = 2 cm and 5cm, on grid, thick,
+  state/.style ={ circle ,top color = white , bottom color = white, draw, black, text=black , minimum width = 0.8 cm}
+]
+  \begin{scope}[start chain=going below,node distance=2cm]
+    \foreach \i in {1, 2}
+      \node[state,on chain] (l\i) {};
+  \end{scope}
+  \begin{scope}[xshift=4cm,yshift=1cm,start chain=going below,node distance=2cm]
+    \foreach \i in {1, 2, 3}
+      \node[state,on chain] (r\i) {};
+  \end{scope}
+
+  \draw[-, thick] (l1) -- (r1);
+  \draw[-, thick] (l2) -- (r2);
+
+\end{tikzpicture}
+
+\end{center}
+
+a druhý zodpovedajúci efektu $0$:
+
+\begin{center}
+
+\begin {tikzpicture}[-latex, auto, node distance = 2 cm and 5cm, on grid, thick,
+  state/.style ={ circle, top color = white ,bottom color = white, draw, black, text=black , minimum width = 0.8 cm}
+]
+  \begin{scope}[start chain=going below,node distance=2cm]
+    \foreach \i in {1, 2}
+      \node[state,on chain] (l\i) {};
+  \end{scope}
+  \begin{scope}[xshift=4cm,yshift=1cm,start chain=going below,node distance=2cm]
+    \foreach \i in {1, 2, 3}
+      \node[state,on chain] (r\i) {};
+  \end{scope}
+
+  \draw[-, thick] (l1) -- (r2);
+  \draw[-, thick] (l1) -- (r3);
+  \draw[-, thick] (l2) -- (r1);
+  \draw[-, thick] (l2) -- (r3);
+
+\end{tikzpicture}
+
+\end{center}
+
+Každú binárnu maticu návrhu $m \times n$, zodpovedajúcej experimentu, teda možno reprezentovať bipartitným grafom s partíciami veľkostí $m$ a $n$. 
+Ekvivalentne, každý bipartitný graf reprezentuje binárnu maticu, a teda aj experiment opísaný v tejto práci.
+
+Naše tvrdenia a hypotézy z predošlých podkapitol možno vďaka tejto reprezentácii prepísať do rámca teórie grafov.
+
+\begin{prop}
+Nech $\mathcal{G}$ je bipartitný graf s partíciami veľkosti $m$ a $n$. 
+Potom hodnota hTb v lineárnom modeli reprezentovanom týmto grafom je odhadnuteľná práve vtedy, keď sa v $\mathcal{G}$ ani v $\mathcal{G}'$ nenachádza izolovaný bod.
+\end{prop}
+
+\begin{dokaz}
+TODO
+\end{dokaz}
+
+\begin{hypoteza}
+Nech $\mathcal{G}$ je bipartitný graf s partíciami veľkosti $2k$ a $2k$.
+Potom maticový návrh experimentu opísaný týmto grafom je optimálny v zmysle definície (\ref{optimal matrix definition}) práve vtedy, keď $\mathcal{G}$ je $k$-regulárny.
+
+Nech $\mathcal{G}$ je bipartitný graf s partíciami veľkosti $2k + 1$ a $2k + 1$.
+Potom maticový návrh experimentu opísaný týmto grafom je optimálny v zmysle definície (\ref{optimal matrix definition}) práve vtedy,
+keď $\mathcal{G}$ je $k$-regulárny alebo $(k + 1)$-regulárny.
+\end{hypoteza}
+
+\begin{dokaz}
+TODO
+\end{dokaz}
+
+Reprezentácia bipartitným grafom nám pri našich súčasných poznatkoch o riadkovo-stĺpcovom aditívnom modeli s dvoma typmi ošetrení neponúkla ďalšie hlbšie závery, 
+avšak ponúkla nám prísľub, že pri našom ďalšom skúmaní v budúcnosti sa budeme môcť oprieť aj o poznatky z teórie grafov.
