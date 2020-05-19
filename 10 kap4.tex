@@ -29,7 +29,7 @@ Pre maticu typu $m \times n$ dostaneme teda $mn$ vzťahov tvaru:
 \begin{center}
 $
 y_{ij} = a_i + b_j + t + e_{ij}
-$
+$,
 \end{center}
 
 $i = 1, \ldots, m$; $j = 1, \ldots, n$; $a_i$ je efekt $i$-tej úrovne faktora $A$ a $b_j$ efekt $j$-tej úrovne faktora $B$; $t$ je $t_0$ alebo $t_1$ podľa hodnoty na $ij$-tej pozícii matice a $e_{ij}$ je chyba.
@@ -40,7 +40,7 @@ s maticou tvaru $mn \times (m + n + 2)$, pretože máme $mn$ meraní závislých
 
 Príklad:
 
-Maticu návrhu experimentu
+Matica návrhu experimentu
 
 \begin{align}
 \label{model matrix}
@@ -52,7 +52,7 @@ B =
 \end{bmatrix}
 \end{align}
 
-prepíšeme ako:
+vedie k matici modelu:
 
 \begin{align}
 \label{linear regression matrix}
@@ -68,6 +68,7 @@ X =
 0 & 0 & 1 & 0 & 1 & 0 & 0 & 1 \\
 0 & 0 & 1 & 0 & 0 & 1 & 1 & 0
 \end{bmatrix}
+.
 \end{align}
 
 Ako presne sme pri generovaní matice postupovali?
@@ -82,10 +83,10 @@ Predpokladáme lineárne vzťahy, preto dostávame lineárnu regresiu
 \begin{center}
 $
 y = X b + e
-$
+$,
 \end{center}
 
-kde $y$ je vektor dát nameraných v experimente, $b$ je vektor neznámych koeficientov a 
+kde $y$ je vektor dát nameraných v experimente, $b = (a_1, \ldots, a_m, b_1, \ldots, b_n, t_0, t_1)$ je vektor neznámych koeficientov a 
 $e = (e_{11}, e_{12}, e_{13}, \ldots, e_{m1}, \dots, e_{mn})^T$ je vektor chýb merania. 
 Uvedomme si, že v našej práci nebudeme pracovať s konkrétnym vektorom $y$; 
 snažíme sa totiž navrhnúť maticu návrhu experimentu $B$ (a z nej vyplývajúcu maticu modelu $X$) ešte pred tým, než experiment vykonáme.
@@ -121,7 +122,7 @@ Na základe vety (\ref{veta4}) vieme, že ak toto riešenie existuje, tak sa rov
 Preto na zistenie, či $h$ patrí do stĺpcového priestoru $M = X^T X$ stačí overiť platnosť rovnosti $M(M^- h) = h$. 
 
 Demonštrujme algoritmus na maticiach rozmeru $3 \times 3$. Existuje $2^9 = 512$ binárnych matíc typu $3 \times 3$, 
-a keď sme na nich rozbehli daný algoritmus, dospeli sme k zisteniu, že pri $12$ z nich hodnota $h^T b$ \emph{nie je} odhadnuteľná.
+a keď sme na ne aplikovali daný algoritmus, dospeli sme k zisteniu, že pri $12$ z nich hodnota $h^T b$ \emph{nie je} odhadnuteľná.
 To znamená, že optimálne matice návrhu budeme hľadať v zvyšných $500$ maticiach.
 
 Ako vyzerajú matice, pri ktorých $h^T b$ nie je odhadnuteľné? Zoznam všetkých sa nachádza v Prílohe A, tu uvedieme $3$ z nich:
@@ -147,7 +148,7 @@ $
 0 & 0 & 0 \\
 0 & 0 & 0 \\
 \end{bmatrix}
-$
+$.
 \end{center}
 
 Týmto spôsobom sme pri našom výskume získali zoznam matíc, pri ktorých $h^T b$ nie je odhadnuteľné, až do rozmeru $4 \times 5$.
@@ -165,7 +166,7 @@ Na základe vety (\ref{veta1}) vieme, že $h^T b$ je odhadnuteľné práve vtedy
 (keď $h$ patrí do riadkového priestoru $X$),
 preto s danými podmienkami môžeme pracovať ekvivalentne.
 
-$\boxed{\implies}$ Nech $h = (0, \ldots, +1, -1) \in \mathcal{M}(X^T)$. Použijeme dôkaz sporom. 
+$\boxed{\implies}$ Nech $h = (0, \ldots, 0, +1, -1) \in \mathcal{M}(X^T)$. Použijeme dôkaz sporom. 
 Nech v matici $B$ typu $m \times n$ neexistuje taký riadok, ktorý má aspoň jednu $0$ a aspoň jednu $1$,
 t. j všetky riadky obsahujú buď samé $0$ alebo samé $1$.
 Ako vyzerá matica $X$?
@@ -248,9 +249,10 @@ Takto to vyzerá, keď zanedbáme stĺpce so samými nulami:
 +(0, 1, 0, 1) \\
 =(0, 0, 0, 0) \\
 \end{split}
+.
 \]
 
-Ako vyzerá chvost $(N_1, N_2)$? Keďže $B_{ij} = 0$ a $B_{ik} = B_{lj} = 1$,
+Ako vyzerá "chvost" $(N_1, N_2)$ vektora $x_{ij} - x_{ik} - x_{lj} + x_{lk}$? Keďže $B_{ij} = 0$ a $B_{ik} = B_{lj} = 1$,
 výraz $x_{ij} - x_{ik} - x_{lj}$ nám vytvorí chvost $(1, -2)$ (prípadne $(-2, 1)$, na tom ale nezáleží).
 Potom na základe toho, či na mieste $B_{lk}$ matice návrhu bola $0$ alebo $1$,
 nám výraz $x_{ij} - x_{ik} - x_{lj} + x_{lk}$ dá na posledných dvoch miestach $(2, -2)$ alebo $(1, -1)$.
@@ -261,7 +263,7 @@ Našli sme teda lineárnu kombináciu riadkov $X$, ktorá nám dala vektor $h$, 
 
 Uvedomme si, že toto tvrdenie dáva intuitívne význam. Ak by sme totiž organizovali experiment napr. podľa druhej matice so zoznamu vyššie, 
 tak by sme nevedeli rozlíšiť, či sú pozorované rozdiely medzi meraniami zodpovedajúcimi prvým dvom stĺpcom a posledným stĺpcom spôsobené rozdielom medzi efektami ošetrení, 
-alebo rozdielom medzi efektami ošetrovateľov 1 a 2 v porovnaní s ošetrovateľom 3. (Používame reprezentáciu modelu, kde riadky reprezentujú dobrovoľníkov a stĺpce liečívá.)
+alebo rozdielom medzi efektami ošetrovateľov 1 a 2 v porovnaní s ošetrovateľom 3.
 
 \subsection{Ekvivalencie binárnych matíc}
 
@@ -312,13 +314,13 @@ Potom $B$ nazývame optimálnou, ak pre všetky binárne matice $C \in \mathbb{R
 
 \begin{center}
 \label{optimal matrix}
-$h^T M_{B}^- h \leq h^T M_{C}^- h$
+$h^T M_{B}^- h \leq h^T M_{C}^- h$,
 \end{center}
 kde $M_{B}^-$ a $M_{C}^-$ sú ľubovoľné pseudoinverzie informačných matíc $M_B$ a $M_C$.
 
 \end{defin}
 
-Nájsť optimálne matice v zmysle definície (\ref{optimal matrix}) je cieľom tejto práce. 
+Nájsť optimálne matice v zmysle definície (\ref{optimal matrix}) je jedným z cieľov tejto práce. 
 Podobne ako pri skúmaní, či hodnotu $h^T b$ vôbec budeme môcť odhadnúť, 
 preskúmame najprv matice malého rozmeru a na základe výsledkov vyslovíme hypotézu pre všeobecný rozmer.
 
@@ -352,7 +354,7 @@ $
 1 & 0 & 0 & 0 & 1 \\
 1 & 0 & 0 & 0 & 1 \\
 \end{bmatrix}
-$
+$.
 \end{center}
 
 Ďalšie matice sa nachádzajú v prílohe B. Na základe týchto návrhov sme pre štvorcové matice odvodili nasledovnú hypotézu.
@@ -402,7 +404,7 @@ jednotiek a v $l - k$ stĺpcoch je práve $k$ jednotiek.
 
 \begin{com}
 Podmienky nie sú nutné, pretože napr. pri rozmere $3 \times 6$ sme našli optimálne matice s pomerom jednotiek a núl
-nielen $9:9$ (spĺňajúce hypotézu), ale aj $6:12$, čo naznačuje, 
+nielen $9:9$ (spĺňajúce hypotézu), ale aj $6:12$, čo dokazuje, 
 že v niektorých prípadoch matice pokryté hypotézou nie sú všetky optimálne matice daného rozmeru. 
 Hypotéza je napriek tomu cenná, pretože pre prax nám poskytuje mechanizmus, ako vytvoriť optimálny návrh experimentu.
 \end{com}
@@ -433,7 +435,7 @@ $
 1 & 0 & 1 & 1 & 0 \\ 
 1 & 1 & 1 & 0 & 0 \\ 
 \end{bmatrix}
-$
+$.
 \end{center}
 
 Niektoré z optimálnych návrhov pre rozmer $3 \times 6$:
@@ -459,7 +461,7 @@ $
 1 & 1 & 0 & 0 & 1 & 1 \\
 1 & 1 & 1 & 1 & 0 & 0 \\
 \end{bmatrix}
-$
+$.
 \end{center}
 
 Napriek tomu, že hypotézu o optimálnych maticiach sa nám matematicky dokázať nepodarilo, numericky sme až do rozmeru $30 \times 30$ ukázali,
@@ -479,6 +481,9 @@ Pre párny rozmer $2k \times 2k$ rozdelíme maticu na $4$ bloky $k \times k$,
 z nich ľavý horný a pravý dolný budú samé jednotky, zvyšné dva samé nuly. 
 Pre nepárny rozmer $(2k + 1) \times (2k + 1)$ budú ľavý horný blok $k \times k$ tvoriť samé jednotky 
 a pravý dolný blok $(k + 1) \times (k + 1)$ bude identita, v ktorej sa zamenili jednotky a nuly.
+
+Jednoduchý \emph{python} kód, ktorý generuje optimálnu maticu návrhu experimentu pre ľubovoľný štvorcový rozmer,
+sa nachádza v Prílohe C.
 
 Názorný príklad, ako to vyzerá pre rozmery $6 \times 6$ a $7 \times 7$:
 
@@ -503,7 +508,7 @@ $
 0 & 0 & 0 & 1 & 1 & 0 & 1 \\
 0 & 0 & 0 & 1 & 1 & 1 & 0 \\
 \end{bmatrix}
-$
+$.
 \end{center}
 
 V tabuľke a grafe sú znázornené hodnoty rozptylu do rozmeru $15 \times 15$.
@@ -559,7 +564,7 @@ $
 k & k & \ldots & k & 2k^2 & 0 & \\
 k & k & \ldots & k & 0 & 2k^2 & \\
 \end{bmatrix}
-$
+$.
 \end{center}
 
 Napr. takto vyzerá matica $M$ pre optimálne návrhy rozmerov $2$ a $4$:
@@ -588,7 +593,7 @@ $
 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 8 & 0 \\
 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 0 & 8 \\
 \end{bmatrix}
-$
+$.
 \end{center}
 
 Teraz dosadením ukážeme, že $h^T M^- h = (h^- M {h^-}^T)^-$. Ak to má platiť, musí platiť nasledovná rovnosť:
@@ -596,7 +601,7 @@ Teraz dosadením ukážeme, že $h^T M^- h = (h^- M {h^-}^T)^-$. Ak to má plati
 \begin{center}
 $
 h^- M {h^-}^T = h^- M {h^-}^T (h^- M {h^-}^T)^- h^- M {h^-}^T = h^- M {h^-}^T h^T M^- h h^- M {h^-}^T
-$
+$.
 \end{center}
 
 Pre vektor $v$ vo všeobecnosti platí, že $v^- = \frac{v^T}{v^T v}$. Pre náš vektor $h$ to znamená, že $h^- = h^T/2 = (0, 0, \ldots, -1/2, 1/2)$.
@@ -623,7 +628,7 @@ $
 0 & 0 & \ldots & 1/2 & -1/2 \\
 0 & 0 & \ldots & -1/2 & 1/2 \\
 \end{bmatrix}
-$
+$,
 \end{center}
 
 \begin{center}
@@ -647,7 +652,7 @@ h h^- =
 0 & 0 & \ldots & 1/2 & -1/2 \\
 0 & 0 & \ldots & -1/2 & 1/2 \\
 \end{bmatrix}
-$
+$.
 \end{center}
 
 Označme túto maticu $H$. Teraz ukážeme, že $HM = MH$.
@@ -677,7 +682,7 @@ k & \ldots & k & 0 & 2k^2 \\
 0 & 0 & \ldots & k^2 & -k^2 \\
 0 & 0 & \ldots & -k^2 & k^2 \\
 \end{bmatrix}
-$
+$,
 \end{center}
 
 \begin{center}
@@ -705,7 +710,7 @@ k & \ldots & k & 0 & 2k^2 \\
 0 & 0 & \ldots & k^2 & -k^2 \\
 0 & 0 & \ldots & -k^2 & k^2 \\
 \end{bmatrix}
-$
+$.
 \end{center}
 
 Takisto platí, že:
@@ -728,7 +733,7 @@ h^- H =
 0 & 0 & \ldots & -1/2 & 1/2 \\
 \end{bmatrix}
 = h^-
-$
+$,
 \end{center}
 
 \begin{center}
@@ -757,7 +762,7 @@ H {h^-}^T =
 1/2 \\
 \end{bmatrix}
 = {h^-}^T
-$
+$.
 \end{center}
 
 Dosaďme:
@@ -765,7 +770,7 @@ Dosaďme:
 \begin{center}
 $
 h^- M {h^-}^T h^T M^- h h^- M {h^-}^T = h^- M H M^- H M {h^-}^T = h^- H M M^- M H {h^-}^T = h^- H M H {h^-}^T = h^- M {h^-}^T
-$
+$.
 \end{center}
 
 Takže naozaj platí $h^T M^- h = (h^- M {h^-}^T)^-$, resp. $(h^T M^- h)^- = h^- M {h^-}^T$ . Hodnotu $h^- M {h^-}^T$ vieme vypočítať:
@@ -802,7 +807,7 @@ k & \ldots & k & 0 & 2k^2 \\
 1/2 \\
 \end{bmatrix}
 = k^2/2 + k^2/2 = k^2
-$
+$.
 \end{center}
 
 Hodnota $x^-$ pre skalár $x$ je rovná $1/x$, preto $h^T M^- h = (h^- M {h^-}^T)^- = 1/k^2$. $\square$
@@ -832,7 +837,7 @@ $
 $
 \end{center}
 
-priradíme dva grafy, jeden zodpovedajúci efektu $1$:
+priradíme dva grafy, jeden zodpovedajúci ošetreniu $1$:
 
 \begin{center}
 
@@ -855,7 +860,7 @@ priradíme dva grafy, jeden zodpovedajúci efektu $1$:
 
 \end{center}
 
-a druhý zodpovedajúci efektu $0$:
+a druhý zodpovedajúci ošetreniu $0$:
 
 \begin{center}
 
@@ -887,24 +892,61 @@ Naše tvrdenia a hypotézy z predošlých podkapitol možno vďaka tejto repreze
 
 \begin{prop}
 Nech $\mathcal{G}$ je bipartitný graf s partíciami veľkosti $m$ a $n$. 
-Potom hodnota hTb v lineárnom modeli reprezentovanom týmto grafom je odhadnuteľná práve vtedy, keď sa v $\mathcal{G}$ ani v $\mathcal{G}'$ nenachádza izolovaný bod.
+Potom hodnota $h^T b$ v lineárnom modeli reprezentovanom týmto grafom je odhadnuteľná práve vtedy,
+keď v oboch partíciách existuje aspoň jeden taký vrchol, ktorý ani v $\mathcal{G}$ ani v $\mathcal{G}'$ nie je izolovaným bodom.
 \end{prop}
 
 \begin{dokaz}
-TODO
+Nech $B$ je matica návrhu experimentu. Potom podľa tvrdenia (\ref{statement 1})
+
+\begin{center}
+hodnota $h^T b$ je odhadnuteľná $\Leftrightarrow$ v $B$ existuje aspoň jeden riadok a aspoň jeden stĺpec taký,
+ktorý má aspoň jednu $0$ a aspoň jednu $1$ $\Leftrightarrow$ tento riadok a stĺpec bude zodpovedať vrcholu,
+ktorý má hrany aj v $\mathcal{G}$ aj v $\mathcal{G}'$ $\Leftrightarrow$ v oboch partíciách $\mathcal{G}$ existuje taký vrchol, ktorý má hranu aj v $\mathcal{G}$ aj v $\mathcal{G}'$.$\square$
+\end{center}
 \end{dokaz}
+
+\begin{defin}
+Bipartitný graf $\mathcal{G}$ nazývame optimálnym, ak matica návrhu experimentu $B$ opísaná týmto grafom je optimálna v zmysle definície (\ref{optimal matrix definition}).
+\end{defin}
 
 \begin{hypoteza}
 Nech $\mathcal{G}$ je bipartitný graf s partíciami veľkosti $2k$ a $2k$.
-Potom maticový návrh experimentu opísaný týmto grafom je optimálny v zmysle definície (\ref{optimal matrix definition}) práve vtedy, keď $\mathcal{G}$ je $k$-regulárny.
+Potom $\mathcal{G}$ je optimálny práve vtedy, keď $\mathcal{G}$ je $k$-regulárny.
 
 Nech $\mathcal{G}$ je bipartitný graf s partíciami veľkosti $2k + 1$ a $2k + 1$.
-Potom maticový návrh experimentu opísaný týmto grafom je optimálny v zmysle definície (\ref{optimal matrix definition}) práve vtedy,
-keď $\mathcal{G}$ je $k$-regulárny alebo $(k + 1)$-regulárny.
+Potom $\mathcal{G}$ je optimálny práve vtedy, keď $\mathcal{G}$ je $k$-regulárny alebo $(k + 1)$-regulárny.
 \end{hypoteza}
 
 \begin{dokaz}
-TODO
+Nech $B$ je matica návrhu experimentu rozmeru $2k \times 2k$. Potom podľa hypotézy (\ref{hypoteza1})
+
+\begin{center}
+$B$ je optimálna $\Leftrightarrow$ v každom riadku a stĺpci $B$ sa nachádza práve $k$ núl a práve $k$ jednotiek $\Leftrightarrow$
+z každého vrchola $\mathcal{G}$ zodpovedajúceho riadku $B$ bude vychádzať práve $k$ hrán,
+z každého vrchola zodpovedajúceho stĺpcu $\mathcal{G}$ bude vychádzať práve $k$ hrán $\Leftrightarrow$ $\mathcal{G}$ je $k$-regulárny.
+\end{center}
+
+Ekvivalentne tvrdenie ukážeme pre rozmer $(2k + 1) \times (2k + 1)$.$\square$
+\end{dokaz}
+
+\begin{hypoteza}
+Nech $\mathcal{G}$ je bipartitný graf.
+
+Postačujúcou podmienkou optimality $\mathcal{G}$ s veľkosťami partícií $2k$ a $2l$ je, ak má $\mathcal{G}$ práve $2kl$ hrán,
+pričom každý z $2k$ vrcholov prvej partície má stupeň $l$ a každý z $2l$ vrcholov druhej partície má stupeň $k$.
+
+Postačujúcou podmienkou optimality $\mathcal{G}$ s veľkosťami partícií $2l + 1$ a $2k$ je, ak má $\mathcal{G}$ práve $(2l + 1)k$ hrán,
+pričom každý z $(2l + 1)$ vrcholov prvej partície má stupeň $k$, $k$ vrcholov druhej partície má stupeň $l + 1$ a zvyšných $k$ vrcholov má stupeň $l$.
+
+Ďalej nech bez ujmy na všeobecnosti $k < l$.
+
+Postačujúcou podmienkou optimality $\mathcal{G}$ s veľkosťami partícií $2k + 1$ a $2l + 1$, ak $\mathcal{G}$ alebo $\mathcal{G}'$ má práve $(l + 1)(2k + 1)$ hrán,
+pričom každý z $2k + 1$ vrcholov prvej partície má stupeň $l + 1$, $l + k + 1$ vrcholov druhej partície má stupeň $k + 1$ a zvyšných $l - k$ vrcholov má stupeň $k$.
+\end{hypoteza}
+
+\begin{dokaz}
+Podobne ako pri dôkaze predošlého tvrdenia, jednotlivé grafy jednoznačne priradíme binárnym maticiam. Tvrdenie potom vyplynie z hypotézy (\ref{hypoteza2}). $\square$
 \end{dokaz}
 
 Reprezentácia bipartitným grafom nám pri našich súčasných poznatkoch o riadkovo-stĺpcovom aditívnom modeli s dvoma typmi ošetrení neponúkla ďalšie hlbšie závery, 

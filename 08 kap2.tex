@@ -16,7 +16,7 @@ Uvažujme teda lineáry regresný model
 
 \begin{align}
 \label{linear regression formula}
-y = Xb + \varepsilon
+y = Xb + \varepsilon .
 \end{align}
 
 Na ľavej strane $y$ je $n \times 1$ vektor pozorovaných náhodných premenných. Vektor $y$ nazývame \emph{závislou} premennou.
@@ -34,7 +34,7 @@ X =
 \vdots & \vdots & \ddots & \\
 1 & x_{n1} & \ldots & x_{np} 
 \end{bmatrix}
-$
+$.
 \end{center}
 
 Rovnica (\ref{linear regression formula}) nám určuje $n$ lineárnych vzťahov tvaru:
@@ -42,7 +42,7 @@ Rovnica (\ref{linear regression formula}) nám určuje $n$ lineárnych vzťahov 
 \begin{center}
 $
 y_i = b_0 + b_1 x_{i1} + … + b_p x_{ip} + {\varepsilon}_i = b^T x_i + {\varepsilon}_i
-$
+$,
 \end{center}
 
 pre $y = (y_1, y_2, \ldots, y_n)^T$, $b = (b_1, b_2, \ldots, b_p)^T$ a $\varepsilon = ({\varepsilon}_1, {\varepsilon}_2, \ldots, {\varepsilon}_n)^T$.
@@ -62,7 +62,7 @@ Metódou najmenších štvorcov vypočítame odhad $\hat{b}$ parametra $b$ nasle
 $
 \hat{b} = \underset{b \in \mathbb{R}^{p}}{\operatorname{arg min}} (y - Xb)^T C (y - Xb) =
 \underset{b \in \mathbb{R}^{p}}{\operatorname{arg min}} ||y - Xb||_{C^{-1}}^2
-$
+$,
 \end{center}
 
 kde $C$ je nejaká kladne definitná matica. 
@@ -81,7 +81,7 @@ Z vety (\ref{ortogonalny projektor na maticu}) vieme, že $P = X (X^T X)^- X^T$.
 Odhad $\hat{b}$ parametra $b$ je teda riešením rovnice
 \begin{align}
 \label{least squares solution}
-X b =  X (X^T X)^- X^T y
+X b =  X (X^T X)^- X^T y,
 \end{align}
 
 kde $P = X (X^T X)^- X^T$ je ortogonálny projektor na stĺpcový priestor $X$.
@@ -91,7 +91,7 @@ Všetky riešenia tejto rovnice musia mať tvar:
 \begin{center}
 $
 (X^T X)^- X^T y
-$
+$,
 \end{center}
 
 kde použitá $g$-inverzia je ľubovoľná.
@@ -129,7 +129,7 @@ Preto pre ľubovoľné riešenie $\hat{b}$ rovnice (\ref{least squares solution}
 \begin{center}
 $
 h^T \hat{b} = u^T X \hat{b} = u^T P y
-$
+$,
 \end{center}
 
 kde päta kolmice $Py$ je jednoznačne daná, preto aj $h^T \hat{b}$ je jednoznačne dané (bez ohľadu na voľbu $\hat{b}$).
@@ -143,7 +143,7 @@ Ak $h$ patrí do riadkového priestoru matice $X$, potom existuje také $u$, že
 Potom pre jednoznačný odhad $h^T \hat{b}$ vektora $h^T b$ platí:
 
 \begin{center}
-$h^T \hat{b} = u^T X \hat{b} = u^T P y = u^T X(X^T X)^- X^T y$
+$h^T \hat{b} = u^T X \hat{b} = u^T P y = u^T X(X^T X)^- X^T y$,
 \end{center}
 
 Vidíme, že v strede výrazu na pravej strane je projekčná matica $X(X^T X)^- X^T$, ktorá je vždy jednoznačne určená, 
@@ -161,7 +161,7 @@ jej odhad metódou najmenších štvorcov je rovný
 \begin{center}
 $
 \hat{b} = \underset{b \in \mathbb{R}^{p}}{\operatorname{arg min}} ||y - Xb||^2 = (X^T X)^{-1} X^T y
-$
+$.
 \end{center}
 
 Pre strednú hodnotu odhadu $\hat{b}$ teda platí:
@@ -169,7 +169,7 @@ Pre strednú hodnotu odhadu $\hat{b}$ teda platí:
 \begin{center}
 $
 E[\hat{b}] = E[(X^T X)^{-1} X^T y] = (X^T X)^{-1} X^T E[y] = (X^T X)^- X^T E[Xb + \varepsilon] = (X^T X)^{-1} X^T X b = b
-$
+$.
 \end{center}
 
 To znamená, že $\hat{b}$ je lineárnym nevychýleným odhadom parametra $b$.
@@ -201,7 +201,7 @@ Potom minimálna možná disperzia lineárneho nevychýleného odhadu $h^T b$ je
 \begin{center}
 $
 m = Var[h^T \hat{b}] = h^T M^- h
-$
+$,
 \end{center}
 
 kde $M = X^T X$ je informačná matica parametra $b$ a $M^-$ je jej ľubovoľná $g$-inverzia
@@ -210,6 +210,6 @@ a $\hat{b}$ je ľubovoľné riešenie rovnice
 \begin{center}
 $
 (X^T X)b = X^T y
-$
+$.
 \end{center}
 \end{theorem}
