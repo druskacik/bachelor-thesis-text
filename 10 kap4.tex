@@ -485,7 +485,7 @@ a pravý dolný blok $(k + 1) \times (k + 1)$ bude identita, v ktorej sa zamenil
 Jednoduchý \emph{python} kód, ktorý generuje optimálnu maticu návrhu experimentu pre ľubovoľný štvorcový rozmer,
 sa nachádza v prílohe \hyperref[appendix:d]{D}.
 
-Názorný príklad, ako to vyzerá pre rozmery $6 \times 6$ a $7 \times 7$:
+Napríklad takto vyzerá optimálna matica návrhu experimentu pre rozmery $6 \times 6$ a $7 \times 7$:
 
 \begin{center}
 $
@@ -511,7 +511,7 @@ $
 $.
 \end{center}
 
-V tabuľke a grafe sú znázornené hodnoty rozptylu do rozmeru $15 \times 15$.
+V tabuľke a grafe sú znázornené hodnoty minimálneho rozptylu do rozmeru $15 \times 15$.
 
 \begin{center}
 \begin{tabular}{ |c|c|}
@@ -534,10 +534,35 @@ V tabuľke a grafe sú znázornené hodnoty rozptylu do rozmeru $15 \times 15$.
 \end{tabular}
 \end{center}
 
-\begin{figure}[!h]
-  \centering
-  \includegraphics{minimalny_rozptyl.png}
-\end{figure}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    % title={Hodnota minimálneho rozptylu do rozmeru $15 \times 15$},
+    xlabel={Rozmer},
+    ylabel={Hodnota minimálneho rozptylu},
+    xmin=2, xmax=16,
+    ymin=0, ymax=1,
+    xtick={0,2,4,6,8,10,12,14,16},
+    ytick={0,0.2,0.4,0.6,0.8,1},
+    legend pos=north west,
+    ymajorgrids=true,
+    grid style=dashed,
+    height=8cm,
+    width=15cm,
+]
+
+\addplot[
+    color=blue,
+    mark=square,
+    ]
+    coordinates {
+    (2, 1.0)(3, 0.5)(4, 0.25)(5, 0.16667)(6, 0.11111)(7, 0.08333)(8, 0.0625)(9, 0.05)(10, 0.04)(11, 0.03333)(12, 0.02778)(13, 0.02381)(14, 0.02041)(15, 0.01786)(16, 0.015625)
+    };
+    \legend{Rozptyl}
+    
+\end{axis}
+\end{tikzpicture}
+\end{center}
 
 Vidíme, že pre rozmer $2k \times 2k$, uvedený v tabuľke a na grafe, je hodnota rozptylu $1/k^2$. Ukážeme, že to platí vo všeobecnosti.
 
