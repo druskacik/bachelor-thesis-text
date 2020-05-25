@@ -19,12 +19,12 @@ Uvažujme teda lineáry regresný model
 y = Xb + \varepsilon .
 \end{align}
 
-Na ľavej strane $y$ je $n \times 1$ vektor pozorovaných náhodných premenných. Vektor $y$ nazývame \emph{závislou} premennou.
-Na pravej strane $X$ je matica plánu, $b$ je neznámy parameter regresného modelu a $\varepsilon$ je náhodná chyba.
+Na ľavej strane $y$ je $N \times 1$ vektor pozorovaných náhodných premenných. Vektor $y$ nazývame \emph{závislou} premennou.
+Na pravej strane $X$ je matica modelu, $b$ je neznámy parameter regresného modelu a $\varepsilon$ je náhodná chyba.
 $X$ vo všeobecnosti môže, ale nemusí byť náhodná matica. Pre účely našej práce budeme narábať s fixnou (známou) maticou $X$,
 čo zohľadníme aj v ďalších teoretických základoch v tejto kapitole.
 
-Nech teda $X$ je známa matica $n \times p$ tvaru:
+Nech teda $X$ je známa matica $N \times p$ tvaru:
 
 \begin{center}
 $
@@ -32,12 +32,12 @@ X =
 \begin{bmatrix}
 1 & x_{11} & \ldots & x_{1p} \\
 \vdots & \vdots & \ddots & \\
-1 & x_{n1} & \ldots & x_{np} 
+1 & x_{N1} & \ldots & x_{Np} 
 \end{bmatrix}
 $.
 \end{center}
 
-Rovnica (\ref{linear regression formula}) nám určuje $n$ lineárnych vzťahov tvaru:
+Rovnica (\ref{linear regression formula}) nám určuje $N$ lineárnych vzťahov tvaru:
 
 \begin{center}
 $
@@ -45,7 +45,8 @@ y_i = b_0 + b_1 x_{i1} + … + b_p x_{ip} + {\varepsilon}_i = b^T x_i + {\vareps
 $,
 \end{center}
 
-pre $y = (y_1, y_2, \ldots, y_n)^T$, $b = (b_1, b_2, \ldots, b_p)^T$ a $\varepsilon = ({\varepsilon}_1, {\varepsilon}_2, \ldots, {\varepsilon}_n)^T$.
+$i = 1, 2, \ldots, N$,
+pre $y = (y_1, y_2, \ldots, y_N)^T$, $b = (b_1, b_2, \ldots, b_p)^T$ a $\varepsilon = ({\varepsilon}_1, {\varepsilon}_2, \ldots, {\varepsilon}_N)^T$.
 
 Ďalej budeme predpokladať $E(\varepsilon) = \textbf{0}$, $Var[\varepsilon] = {\sigma}^2 I$,
 t. j jednotlivé ${\varepsilon}_i, {\varepsilon}_j$ sú nezávislé a rovnako rozdelené.
@@ -67,7 +68,7 @@ $,
 
 kde $C$ je nejaká kladne definitná matica. 
 Ak $C = I$, potom minimalizujeme výraz
-$||y - Xb||_I^2 = ||y - Xb||^2 = \sum_{i=1}^n (y_i - X_{i \cdot } b)^2$
+$||y - Xb||_I^2 = ||y - Xb||^2 = \sum_{i=1}^N (y_i - X_{i \cdot } b)^2$
 , kde $X_{i \cdot }$ značí $i$-ty riadok matice $X$.
 Keďže sme predpokladali nezávislosť chýb a tiež homogenitu ich rozptylu, je pre nás najvýhodnejšie dosadiť $C = I$,
 čo možno dokázať pomocou Gaussovej-Markovovej vety, ktorú uvedieme neskôr.
@@ -135,8 +136,7 @@ $,
 kde päta kolmice $Py$ je jednoznačne daná, preto aj $h^T \hat{b}$ je jednoznačne dané (bez ohľadu na voľbu $\hat{b}$).
 $h^T b$ je teda podľa definície (\ref{odhadnutelnost}) odhadnuteľné.
 
-Ekvivalencia podmienok (1) a (2) vyplýva z toho, že podľa lemy (\ref{o stlpcovych priestoroch}) vo všeobecnosti platí, že $\mathcal{M}(X^T) = \mathcal{M}(X^T X)$.
-$\square$
+Ekvivalencia podmienok (1) a (2) vyplýva z toho, že podľa lemy (\ref{o stlpcovych priestoroch}) vo všeobecnosti platí, že $\mathcal{M}(X^T) = \mathcal{M}(X^T X)$. $\square$
 \end{dokaz}
 
 Ak $h$ patrí do riadkového priestoru matice $X$, potom existuje také $u$, že $h = X^T u$.
@@ -155,7 +155,7 @@ konkrétne napr. rozdiely medzi nimi.
 
 \subsection{Gaussova-Markovova veta}
 
-V predchádzajúcej časti sme ukázali, že ak matica je matica plánu $X$ regulárna,
+V predchádzajúcej časti sme ukázali, že ak matica je matica modelu $X$ regulárna,
 jej odhad metódou najmenších štvorcov je rovný
 
 \begin{center}

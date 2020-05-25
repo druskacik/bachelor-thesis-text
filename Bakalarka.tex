@@ -22,6 +22,8 @@
 \usepackage{listings}
 \usepackage{enumitem}
 
+\usepackage[toc,page]{appendix}
+
 \usepackage{url}
 \urlstyle{rm}
 \renewcommand\UrlFont{\color{black}}
@@ -125,21 +127,31 @@ plainpages=false
 	\newpage
   \appendix
   \section*{Príloha A} 
+    \label{appendix:a}
     \addcontentsline{toc}{section}{Príloha A}
     \markboth{Príloha A}{Príloha A}
     \input{14 AppendixA}
 
   \newpage
-  \section*{Príloha B} 
+  \section*{Príloha B}
+    \label{appendix:b}
     \addcontentsline{toc}{section}{Príloha B}
     \markboth{Príloha B}{Príloha B}
     \input{15 AppendixB}
 
   \newpage
-  \section*{Príloha C} 
+  \section*{Príloha C}
+    \label{appendix:c}
     \addcontentsline{toc}{section}{Príloha C}
     \markboth{Príloha C}{Príloha C}
     \input{16 AppendixC}
     %\begin{comment}
+
+  \newpage
+  \section*{Príloha D}
+    \label{appendix:d}
+    \addcontentsline{toc}{section}{Príloha D}
+    \markboth{Príloha D}{Príloha D}
+    \input{17 AppendixD}
 %\end{comment}
 \end{document}

@@ -122,10 +122,10 @@ Na základe vety (\ref{veta4}) vieme, že ak toto riešenie existuje, tak sa rov
 Preto na zistenie, či $h$ patrí do stĺpcového priestoru $M = X^T X$ stačí overiť platnosť rovnosti $M(M^- h) = h$. 
 
 Demonštrujme algoritmus na maticiach rozmeru $3 \times 3$. Existuje $2^9 = 512$ binárnych matíc typu $3 \times 3$, 
-a keď sme na ne aplikovali daný algoritmus, dospeli sme k zisteniu, že pri $12$ z nich hodnota $h^T b$ \emph{nie je} odhadnuteľná.
-To znamená, že optimálne matice návrhu budeme hľadať v zvyšných $500$ maticiach.
+a keď sme na ne aplikovali daný algoritmus, dospeli sme k zisteniu, že pri $18$ z nich hodnota $h^T b$ \emph{nie je} odhadnuteľná.
+To znamená, že optimálne matice návrhu budeme hľadať v zvyšných $492$ maticiach.
 
-Ako vyzerajú matice, pri ktorých $h^T b$ nie je odhadnuteľné? Zoznam všetkých sa nachádza v Prílohe A, tu uvedieme $3$ z nich:
+Ako vyzerajú matice, pri ktorých $h^T b$ nie je odhadnuteľné? Zoznam všetkých sa nachádza v prílohe \hyperref[appendix:a]{A}, tu uvedieme $3$ z nich:
 
 \begin{center}
 $
@@ -316,7 +316,7 @@ Potom $B$ nazývame optimálnou, ak pre všetky binárne matice $C \in \mathbb{R
 \label{optimal matrix}
 $h^T M_{B}^- h \leq h^T M_{C}^- h$,
 \end{center}
-kde $M_{B}^-$ a $M_{C}^-$ sú ľubovoľné pseudoinverzie informačných matíc $M_B$ a $M_C$.
+kde $M_{B}^-$ a $M_{C}^-$ sú ľubovoľné $g$-inverzie informačných matíc $M_B$ a $M_C$.
 
 \end{defin}
 
@@ -357,7 +357,7 @@ $
 $.
 \end{center}
 
-Ďalšie matice sa nachádzajú v prílohe B. Na základe týchto návrhov sme pre štvorcové matice odvodili nasledovnú hypotézu.
+Ďalšie matice sa nachádzajú v prílohe \hyperref[appendix:b]{B}. Na základe týchto návrhov sme pre štvorcové matice odvodili nasledovnú hypotézu.
 
 \begin{hypoteza}
 \label{hypoteza1}
@@ -483,7 +483,7 @@ Pre nepárny rozmer $(2k + 1) \times (2k + 1)$ budú ľavý horný blok $k \time
 a pravý dolný blok $(k + 1) \times (k + 1)$ bude identita, v ktorej sa zamenili jednotky a nuly.
 
 Jednoduchý \emph{python} kód, ktorý generuje optimálnu maticu návrhu experimentu pre ľubovoľný štvorcový rozmer,
-sa nachádza v Prílohe C.
+sa nachádza v prílohe \hyperref[appendix:d]{D}.
 
 Názorný príklad, ako to vyzerá pre rozmery $6 \times 6$ a $7 \times 7$:
 
@@ -539,7 +539,7 @@ V tabuľke a grafe sú znázornené hodnoty rozptylu do rozmeru $15 \times 15$.
   \includegraphics{minimalny_rozptyl.png}
 \end{figure}
 
-Vidíme, že pre rozmer $2k \times 2k$ je hodnota rozptylu $1/k^2$. Ukážeme, že to platí vo všeobecnosti.
+Vidíme, že pre rozmer $2k \times 2k$, uvedený v tabuľke a na grafe, je hodnota rozptylu $1/k^2$. Ukážeme, že to platí vo všeobecnosti.
 
 \begin{prop}
 Pre optimálnu maticu návrhu rozmeru $2k \times 2k$ je hodnota Gaussovho-Markovho odhadu rozdielu medzi efektami $1/k^2$.
@@ -825,6 +825,7 @@ Ako sme avizovali na začiatku kapitoly, návrh nami opisovaného experimentu mo
 Tak ako v maticovej reprezentácii zodpovedali riadky dobrovoľníkom a stĺpce liečivám, podobne v bipartitnom grafe budú dobrovoľníci 
 zodpovedať jednej partícii a liečivá druhej. Hrana sa medzi dvoma bodmi nachádza práve vtedy, keď pozícii tejto dvojice v matici návrhu zodpovedá nami zvolený spôsob ošetrenia.
 Grafy zodpovedajúce jednému či druhému ošetreniu sú navzájom disjunktné a ich zjednotením získame kompletný bipartitný graf, t. j tieto dva grafy sú si navzájom doplnkami.
+V zvyšku podkapitoly budeme tieto grafy označovať $\mathcal{G}$ a $\mathcal{G}'$.
 
 Napríklad nasledovnej matici návrhu experimentu
 
@@ -860,7 +861,7 @@ priradíme dva grafy, jeden zodpovedajúci ošetreniu $1$:
 
 \end{center}
 
-a druhý zodpovedajúci ošetreniu $0$:
+a druhý, komplementárny prvému, zodpovedajúci ošetreniu $0$:
 
 \begin{center}
 
@@ -888,7 +889,7 @@ a druhý zodpovedajúci ošetreniu $0$:
 Každú binárnu maticu návrhu $m \times n$, zodpovedajúcej experimentu, teda možno reprezentovať bipartitným grafom s partíciami veľkostí $m$ a $n$. 
 Ekvivalentne, každý bipartitný graf reprezentuje binárnu maticu, a teda aj experiment opísaný v tejto práci.
 
-Naše tvrdenia a hypotézy z predošlých podkapitol možno vďaka tejto reprezentácii prepísať do rámca teórie grafov.
+Naše tvrdenia a hypotézy z predošlých podkapitol možno vďaka tejto reprezentácii prepísať do jazyka teórie grafov.
 
 \begin{prop}
 Nech $\mathcal{G}$ je bipartitný graf s partíciami veľkosti $m$ a $n$. 
@@ -898,12 +899,9 @@ keď v oboch partíciách existuje aspoň jeden taký vrchol, ktorý ani v $\mat
 
 \begin{dokaz}
 Nech $B$ je matica návrhu experimentu. Potom podľa tvrdenia (\ref{statement 1})
-
-\begin{center}
 hodnota $h^T b$ je odhadnuteľná $\Leftrightarrow$ v $B$ existuje aspoň jeden riadok a aspoň jeden stĺpec taký,
 ktorý má aspoň jednu $0$ a aspoň jednu $1$ $\Leftrightarrow$ tento riadok a stĺpec bude zodpovedať vrcholu,
-ktorý má hrany aj v $\mathcal{G}$ aj v $\mathcal{G}'$ $\Leftrightarrow$ v oboch partíciách $\mathcal{G}$ existuje taký vrchol, ktorý má hranu aj v $\mathcal{G}$ aj v $\mathcal{G}'$.$\square$
-\end{center}
+ktorý má hrany aj v $\mathcal{G}$ aj v $\mathcal{G}'$ $\Leftrightarrow$ v oboch partíciách $\mathcal{G}$ existuje taký vrchol, ktorý má hranu aj v $\mathcal{G}$ aj v $\mathcal{G}'$. $\square$
 \end{dokaz}
 
 \begin{defin}
@@ -920,14 +918,11 @@ Potom $\mathcal{G}$ je optimálny práve vtedy, keď $\mathcal{G}$ je $k$-regul�
 
 \begin{dokaz}
 Nech $B$ je matica návrhu experimentu rozmeru $2k \times 2k$. Potom podľa hypotézy (\ref{hypoteza1})
-
-\begin{center}
 $B$ je optimálna $\Leftrightarrow$ v každom riadku a stĺpci $B$ sa nachádza práve $k$ núl a práve $k$ jednotiek $\Leftrightarrow$
 z každého vrchola $\mathcal{G}$ zodpovedajúceho riadku $B$ bude vychádzať práve $k$ hrán,
 z každého vrchola zodpovedajúceho stĺpcu $\mathcal{G}$ bude vychádzať práve $k$ hrán $\Leftrightarrow$ $\mathcal{G}$ je $k$-regulárny.
-\end{center}
 
-Ekvivalentne tvrdenie ukážeme pre rozmer $(2k + 1) \times (2k + 1)$.$\square$
+Ekvivalentne tvrdenie ukážeme pre rozmer $(2k + 1) \times (2k + 1)$. $\square$
 \end{dokaz}
 
 \begin{hypoteza}

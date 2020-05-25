@@ -33,8 +33,7 @@ $.
 \begin{center}
 $
 x \in \mathcal{K}(A^T) \Leftrightarrow A^T x = 0 \Leftrightarrow {\forall}_v v^T A^T x = 0 \Leftrightarrow {\forall}_v (Av)^Tx = 0 \Leftrightarrow x \in [\mathcal{M}(A)]^{\perp}
-$.
-$\square$
+$. $\square$
 \end{center}
 \end{dokaz}
 
@@ -67,7 +66,7 @@ $
 $.
 \end{center}
 
-Odstránením $\perp$ sa inklúzia obráti, čo spolu s opačnou inklúziou vyššie dáva výsledok $\mathcal{M}(A^T) = \mathcal{M}(A^T A)$.$\square$
+Odstránením $\perp$ sa inklúzia obráti, čo spolu s opačnou inklúziou vyššie dáva výsledok $\mathcal{M}(A^T) = \mathcal{M}(A^T A)$. $\square$
 \end{dokaz}
 
 \begin{defin}
@@ -75,14 +74,14 @@ Nech $A$ je ľubovoľná matica. Potom matica $A^-$ taká, že
 \begin{center}
 $A A^- A = A$,
 \end{center}
-sa nazýva $g$-inverzia (alebo pseudoinverzia) matice $A$.
+sa nazýva $g$-inverzia (alebo zovšeobecnená inverzia) matice $A$.
 \end{defin}
 
 \begin{com}
 Ak $A^{-1}$ neexistuje, tak pre maticu $A$ existuje nekonečný počet $g$-inverzií.
 \end{com}
 
-Pseudoinverzie použijeme neskôr v našej práci, keď budeme skúmať, 
+Zovšeobecnené inverzie použijeme neskôr v našej práci, keď budeme skúmať, 
 či vektor patrí do stĺpcového priestoru matice. Na to nám poslúži nasledovná veta.
 
 \begin{theorem}
@@ -93,7 +92,7 @@ Nech rovnica $Ax = y$ má riešenie a nech $A^-$ je ľubovoľná $g$-inverzia. P
 \begin{dokaz}
 Keďže $Ax = y$ má riešenie, tak existuje také $x_0$, že $A x_0 = y$. Potom 
 \begin{center}
-$A (A^- y) = A(A^- A x_0) = A x_0 = y$.$\square$
+$A (A^- y) = A(A^- A x_0) = A x_0 = y$. $\square$
 \end{center}
 \end{dokaz}
 
@@ -160,7 +159,7 @@ $,
 \begin{center}
 $
 {\forall}_{x, y \in \mathbb{R}^m} \langle x, Py \rangle = x^T F(F^T F)^{-1} F^T y = x^T [F (F^T F)^{-1} F^T]^T y = x^T P^T y = \langle Px, y \rangle
-$.$\square$
+$. $\square$
 \end{center}
 \end{dokaz}
 
