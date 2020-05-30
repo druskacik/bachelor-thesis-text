@@ -9,9 +9,9 @@ pričom faktor $A$ má $m$ úrovní a faktor $B$ $n$ úrovní.
 Pre každú kombináciu faktorov experimentátor zvolí jedno z dvojice ošetrení (angl. treatment).
 Budeme uvažovať len aditívny model bez interakcií.
 
-Napríklad faktor $A$ môže označovať dobrovoľníka (t.j. máme $m$ dobrovoľníkov) 
-a faktor $B$ účinnú látku, ktorú nazveme liečivo (t.j. máme $n$ liečiv). 
-Ošetrenie $0$ reprezentuje podanie liečiva orálnym spôsobom a ošetrenie $1$ vnútrožilne).
+Napríklad faktor $A$ môže označovať dobrovoľníka (t. j. máme $m$ dobrovoľníkov) 
+a faktor $B$ účinnú látku, ktorú nazveme liečivo (t. j. máme $n$ liečiv). 
+Ošetrenie $0$ reprezentuje podanie liečiva orálnym spôsobom a ošetrenie $1$ vnútrožilovo).
 Účinok, ktorý po čase nameriame na dobrovoľníkovi, 
 závisí aditívne od efektu samotného dobrovoľníka (jeho predispozícií), 
 efektu liečiva a efektu ošetrenia. 
@@ -22,7 +22,7 @@ Návrh teda možno reprezentovať binárnou maticou
 
 Cieľom experimentu je odhadnúť rozdiel medzi efektmi daných dvoch ošetrení.
 Cieľom hľadania optimálneho modelu je nájsť taký návrh, pri ktorom
-rozptyl Gauss-Markovovho odhadu rozdielu medzi efektmi dvojice ošetrení (t.j. odhadu kontrastu ošetrení) bude čo najmenší.
+rozptyl Gauss-Markovovho odhadu rozdielu medzi efektmi dvojice ošetrení (t. j. odhadu kontrastu ošetrení) bude čo najmenší.
 
 Pre maticu typu $m \times n$ dostaneme teda $mn$ vzťahov tvaru:
 
@@ -89,7 +89,7 @@ $,
 kde $y$ je vektor dát nameraných v experimente, $b = (a_1, \ldots, a_m, b_1, \ldots, b_n, t_0, t_1)$ je vektor neznámych koeficientov a 
 $e = (e_{11}, e_{12}, e_{13}, \ldots, e_{m1}, \dots, e_{mn})^T$ je vektor chýb merania. 
 Uvedomme si, že v našej práci nebudeme pracovať s konkrétnym vektorom $y$; 
-snažíme sa totiž navrhnúť maticu návrhu experimentu $B$ (a z nej vyplývajúcu maticu modelu $X$) ešte pred tým, než experiment vykonáme.
+snažíme sa totiž navrhnúť maticu návrhu experimentu $B$ (a z nej vyplývajúcu maticu modelu $X$) ešte predtým, než experiment vykonáme.
 
 Naším cieľom teraz bude odhadnúť rozdiel medzi efektmi $t_0$ a $t_1$, resp. zistiť, 
 aká môže byť disperzia tohto odhadu pri danej matici návrhu $B$. 
@@ -102,7 +102,7 @@ Z algoritmu, ktorým sme z matice návrhu $B$ vytvorili maticu lineárnej regres
 vyplýva, že vektor $h$ má tvar $(0, 0, 0, \ldots, +1, -1)^T$.
 
 Na zistenie, či $h^T b$ je odhadnuteľné, použijeme vetu (\ref{veta1}), 
-a na následné nájdenie minimálneho rozptylu Gauss-Markovovho odhadu rozdielu medzi efektami 
+a na následné nájdenie minimálneho rozptylu Gauss-Markovovho odhadu rozdielu medzi efektmi 
 použijeme Gaussovu-Markovovu vetu (\ref{gauss-markov}).
 
 \subsection{Odhadnuteľnosť $h^T b$}
@@ -119,11 +119,11 @@ keď vektor $h = (0, 0, 0, \ldots, +1, -1)^T$ patrí do stĺpcového priestoru m
 Označme $M = X^T X$, túto maticu budeme nazývať informačnou maticou. 
 Ak $h$ patrí do stĺpcového priestoru $M$, potom existuje taký vektor $v$, že $M v = h$. 
 Na základe vety (\ref{veta4}) vieme, že ak toto riešenie existuje, tak sa rovná $M^- h$, pričom zvolená $g$-inverzia môže byť ľubovoľná.
-Preto na zistenie, či $h$ patrí do stĺpcového priestoru $M = X^T X$ stačí overiť platnosť rovnosti $M(M^- h) = h$. 
+Preto na zistenie, či $h$ patrí do stĺpcového priestoru $M = X^T X$, stačí overiť platnosť rovnosti $M(M^- h) = h$. 
 
 Demonštrujme algoritmus na maticiach rozmeru $3 \times 3$. Existuje $2^9 = 512$ binárnych matíc typu $3 \times 3$, 
 a keď sme na ne aplikovali daný algoritmus, dospeli sme k zisteniu, že pri $18$ z nich hodnota $h^T b$ \emph{nie je} odhadnuteľná.
-To znamená, že optimálne matice návrhu budeme hľadať v zvyšných $492$ maticiach.
+To znamená, že optimálne matice návrhu budeme hľadať medzi zvyšnými $492$ maticami.
 
 Ako vyzerajú matice, pri ktorých $h^T b$ nie je odhadnuteľné? Zoznam všetkých sa nachádza v prílohe \hyperref[appendix:a]{A}, tu uvedieme $3$ z nich:
 
@@ -152,7 +152,7 @@ $.
 \end{center}
 
 Týmto spôsobom sme pri našom výskume získali zoznam matíc, pri ktorých $h^T b$ nie je odhadnuteľné, až do rozmeru $4 \times 5$.
-Zoznam všetkých sa nachádza v GitHub repozitári spomenutom v úvode. 
+Zoznam všetkých sa nachádza v \emph{GitHub} repozitári spomenutom v úvode. 
 Na základe podobnosti matíc daného typu sme odvodili nasledovné tvrdenie.
 
 \begin{prop}
@@ -168,7 +168,7 @@ preto s danými podmienkami môžeme pracovať ekvivalentne.
 
 $\boxed{\implies}$ Nech $h = (0, \ldots, 0, +1, -1) \in \mathcal{M}(X^T)$. Použijeme dôkaz sporom. 
 Nech v matici $B$ typu $m \times n$ neexistuje taký riadok, ktorý má aspoň jednu $0$ a aspoň jednu $1$,
-t. j všetky riadky obsahujú buď samé $0$ alebo samé $1$.
+t. j. všetky riadky obsahujú buď samé $0$ alebo samé $1$.
 Ako vyzerá matica $X$?
 
 Pozrime sa na riadky matice $X$ zodpovedajúce prvému riadku matice $B$.
@@ -191,7 +191,7 @@ $\vdots$
 \begin{center}
 $
 x_n = (1, 0, \ldots, 0, 0, \ldots, 1, 1, 0)
-$
+$.
 \end{center}
 
 Keďže $h \in \mathcal{M}(X^T)$, existuje taká lineárna kombinácia riadkov $X$, ktorá dokopy dáva vektor $h$.
@@ -211,7 +211,7 @@ Týmto spôsobom pokryjeme všetky riadky matice $X$, vďaka čomu dospejeme k z
 že z riadkov $X$ nie je možné lineárnou kombináciou zostrojiť vektor $h$.
 To nám dáva spor s predpokladom $h \in \mathcal{M}(X^T)$.
 Preto nemôže platiť, že všetky riadky matice $B$ obsahujú buď samé $0$ alebo samé $1$,
-a platí opačné tvrdenie, t.j v $B$ existuje aspoň jeden riadok taký, ktorý obsahuje $0$ aj $1$.
+a platí opačné tvrdenie, t. j. v $B$ existuje aspoň jeden riadok taký, ktorý obsahuje $0$ aj $1$.
 
 Rovnakou úvahou pre stĺpce $B$ dospejeme k záveru,
 že $B$ musí takisto obsahovať aspoň jeden stĺpec obsahujúci $0$ aj $1$.
@@ -242,6 +242,7 @@ preto $x_{ij} - x_{ik} - x_{lj} + x_{lk} = x_{ij} + x_{lk} - (x_{ik} + x_{lj})$ 
 
 Takto to vyzerá, keď zanedbáme stĺpce so samými nulami:
 \[
+% \begin{center}
 \begin{split}
 +(1, 0, 1, 0) \\
 -(1, 0, 0, 1) \\
@@ -249,7 +250,7 @@ Takto to vyzerá, keď zanedbáme stĺpce so samými nulami:
 +(0, 1, 0, 1) \\
 =(0, 0, 0, 0) \\
 \end{split}
-.
+% \end{center}
 \]
 
 Ako vyzerá "chvost" $(N_1, N_2)$ vektora $x_{ij} - x_{ik} - x_{lj} + x_{lk}$? Keďže $B_{ij} = 0$ a $B_{ik} = B_{lj} = 1$,
@@ -261,9 +262,9 @@ Našli sme teda lineárnu kombináciu riadkov $X$, ktorá nám dala vektor $h$, 
 
 \end{dokaz}
 
-Uvedomme si, že toto tvrdenie dáva intuitívne význam. Ak by sme totiž organizovali experiment napr. podľa druhej matice so zoznamu vyššie, 
-tak by sme nevedeli rozlíšiť, či sú pozorované rozdiely medzi meraniami zodpovedajúcimi prvým dvom stĺpcom a posledným stĺpcom spôsobené rozdielom medzi efektami ošetrení, 
-alebo rozdielom medzi efektami ošetrovateľov 1 a 2 v porovnaní s ošetrovateľom 3.
+Uvedomme si, že toto tvrdenie dáva intuitívne význam. Ak by sme totiž organizovali experiment napr. podľa druhej matice zo zoznamu vyššie, 
+tak by sme nevedeli rozlíšiť, či sú pozorované rozdiely medzi meraniami zodpovedajúcimi prvým dvom stĺpcom a posledným stĺpcom spôsobené rozdielom medzi efektmi ošetrení
+alebo rozdielom medzi efektmi ošetrovateľov 1 a 2 v porovnaní s ošetrovateľom 3.
 
 \subsection{Ekvivalencie binárnych matíc}
 
@@ -276,16 +277,16 @@ Pre skúmanie špecifík jednotlivých matíc je výhodné uvedomiť si niektor�
 \begin{hypoteza}
 
 Matice, ktoré možno spermutovať jednu na druhú riadkovými a stĺpcovými permutáciami, sú ekvivalentné v zmysle, 
-že majú rovnakú hodnotu minimálneho rozptylu Gaussovho-Markovovho odhadu rozdielu medzi efektami ošetrení.
+že majú rovnakú hodnotu minimálneho rozptylu Gaussovho-Markovovho odhadu rozdielu medzi efektmi ošetrení.
 
 \end{hypoteza}
 
 Hypotézu uvádzame bez matematického dôkazu, ukážeme však, že ak naša interpretácia modelu reprezentovaného binárnou maticou je správna,
-hypotéza musí platíť. Model sme interpretovali ako zoznam trojíc dobrovoľník, liečivo, spôsob jeho prijatia, 
-pričom dobrovoľníci zodpovedali riadkom, liečivá stĺpcom, a spôsob prijatia liečiva hodnotám v matici. 
+hypotéza musí platiť. Model sme interpretovali ako zoznam trojíc dobrovoľník, liečivo, spôsob jeho prijatia, 
+pričom dobrovoľníci zodpovedali riadkom, liečivá stĺpcom a spôsob prijatia liečiva hodnotám v matici. 
 Uvedomme si, že o efektoch dobrovoľníkov ani liečiv pri výpočte rozptylu nič nevieme. 
 Permutáciám riadkov a stĺpcov preto zodpovedá akési „preznačenie“ jednotlivých dobrovoľníkov a liečiv, 
-vôbec to ale nezmení štruktúru experimentu. Pripomeňme si, že rozptyl Gaussovho-Markovovho odhadu rozdielu medzi efektami
+vôbec to ale nezmení štruktúru experimentu. Pripomeňme si, že rozptyl Gaussovho-Markovovho odhadu rozdielu medzi efektmi
 počítame pred vykonaním experimentu a nameraním dát.
 
 Táto jediná ekvivalencia nám výrazne zredukuje počet matíc, s ktorými musíme počítať. 
@@ -374,13 +375,13 @@ keď všetky jej riadky aj stĺpce majú rovnaký počet jednotiek, a ten počet
 Hypotéza je do rozmeru $6 \times 6$ tvrdením, pretože sa nám to podarilo ukázať úplnou enumeráciou všetkých možných návrhov.
 \end{com}
 
-Ako to vyzerá pre matice iného, ako štvorcového rozmeru? 
+Ako to vyzerá pre matice iného ako štvorcového rozmeru? 
 Kľúčový je pomer jednotiek a núl v matici návrhu. 
 Všimnime si, že pri štvorcových rozmeroch v predošlej hypotéze je v prípade párneho rozmeru rovnaký počet jednotiek a núl, 
 no v prípade nepárneho rozmeru pomer nielenže nie je pol na pol (čo ani nemôže byť), 
-ale dokonca k tomuto pomeru ani nie je tak blízko, ako by mohol byť. 
+ale dokonca k tomuto pomeru nie je ani tak blízko, ako by mohol byť. 
 Napríklad pri rozmere $5 \times 5$ by sme mohli očakávať, že pomer jednotiek a núl v optimálnom návrhu bude $13:12$, 
-ale podľa hypotézy je to $15:10$. Skutočnosť, že $5$ delí $10$ aj $15$, nie je náhodná, 
+ale podľa hypotézy je to $15:10$. Skutočnosť, že $5$ delí $10$ aj $15$, nie je náhodná
 a bude zohrávať kľúčovú rolu pri hypotéze o návrhoch iných ako štvorcových rozmerov.
 
 \begin{hypoteza}
@@ -470,9 +471,9 @@ Dané matice teda určite tvoria lokálne minimum (na okolí tých matíc, ktor�
 
 \subsection{Hodnota minimálneho rozptylu}
 
-Ako závisí hodnota Gaussovho-Markovovho odhadu rozdielu medzi efektami od rozmeru matice návrhu? 
-Ukážeme, že tento najmenší dosiahnuteľný rozptyl má so stúpajúcim rozmerom klesajúcu tendenciu. 
-(Čo, napokon, dáva zmysel, pretože väčší rozdiel nám ponúka viac dát na určenie rozdielu medzi dvoma efektmi.)
+Ako závisí hodnota Gaussovho-Markovovho odhadu rozdielu medzi efektmi od rozmeru matice návrhu? 
+Ukážeme, že tento najmenší dosiahnuteľný rozptyl má so stúpajúcim rozmerom klesajúcu tendenciu
+(čo napokon dáva zmysel, pretože väčší rozmer nám ponúka viac dát na určenie rozdielu medzi dvoma efektmi).
 
 Hodnoty pre jednotlivé rozmery určíme tak, že pre každý rozmer zoberieme jednu maticu optimálnu 
 v zmysle definície (\ref{optimal matrix definition}).
@@ -567,14 +568,14 @@ V tabuľke a grafe sú znázornené hodnoty minimálneho rozptylu do rozmeru $16
 Vidíme, že pre rozmer $2k \times 2k$, uvedený v tabuľke a na grafe, je hodnota rozptylu $1/k^2$. Ukážeme, že to platí vo všeobecnosti.
 
 \begin{prop}
-Pre optimálnu maticu návrhu rozmeru $2k \times 2k$ je hodnota Gaussovho-Markovho odhadu rozdielu medzi efektami $1/k^2$.
+Pre optimálnu maticu návrhu rozmeru $2k \times 2k$ je hodnota Gaussovho-Markovovho odhadu rozdielu medzi efektmi $1/k^2$.
 \end{prop}
 
 \begin{dokaz}
 Nech $B$ je optimálna matica návrhu rozmeru $2k \times 2k$ spĺňajúca hypotézu (\ref{hypoteza1}). Označme $X$ maticu lineárnej regresie pre návrh $B$. Hodnotu rozptylu $m$ vypočítame ako $h^T M^- h$,
 kde $M = X^T X$ je informačná matica lineárnej regresie a vektor $h = (0, 0, \ldots, -1, 1)^T $ zodpovedá rozdielu dvoch efektov. Ako vyzerajú posledné dva stĺpce matice $M$?
 
-Matica $X$ je rozmeru $(4k + 2) \times (4k + 2)$, pričom prvých $2k$ riadkov zodpovedá $2k$ riadkom návrhu $B$, druhých $2k$ riadkov zodpovedá $2k$ stĺpcom návrhu $B$,
+Matica $X$ je rozmeru $(4k + 2) \times (4k + 2)$, pričom prvých $2k$ riadkov zodpovedá $2k$ riadkom návrhu $B$, druhých $2k$ riadkov zodpovedá $2k$ stĺpcom návrhu $B$
 a posledné dva riadky zodpovedajú efektu na jednotlivých pozíciách návrhu $B$. Posledné dva stĺpce súčinu $X^T X$ zodpovedajú násobkom riadkov $X^T$ (stĺpcov $X$) s dvoma stĺpcami $X$ zodpovedajúcimi efektu.
 Ak riadok, ktorým násobíme, je jeden zo $4k$ riadkov zodpovedajúcich stĺpcu alebo riadku návrhu $B$, hodnota súčinu bude predstavovať počet toho ktorého efektu v danom stĺpci alebo riadku.
 Tá je podľa hypotézy (\ref{hypoteza1}) práve $k$ pre oba efekty. Ak navzájom násobíme riadok a stĺpec zodpovedajúci efektu, hodnota bude $0$, ak ide o rozdielne efekty,
@@ -849,7 +850,7 @@ Infomačná matica $M$ totiž pri nepárnom rozmere nemá natoľko vhodnú štru
 Ako sme avizovali na začiatku kapitoly, návrh nami opisovaného experimentu možno reprezentovať aj bipartitným grafom.
 Tak ako v maticovej reprezentácii zodpovedali riadky dobrovoľníkom a stĺpce liečivám, podobne v bipartitnom grafe budú dobrovoľníci 
 zodpovedať jednej partícii a liečivá druhej. Hrana sa medzi dvoma bodmi nachádza práve vtedy, keď pozícii tejto dvojice v matici návrhu zodpovedá nami zvolený spôsob ošetrenia.
-Grafy zodpovedajúce jednému či druhému ošetreniu sú navzájom disjunktné a ich zjednotením získame kompletný bipartitný graf, t. j tieto dva grafy sú si navzájom doplnkami.
+Grafy zodpovedajúce jednému či druhému ošetreniu sú navzájom disjunktné a ich zjednotením získame kompletný bipartitný graf, t. j. tieto dva grafy sú si navzájom doplnkami.
 V zvyšku podkapitoly budeme tieto grafy označovať $\mathcal{G}$ a $\mathcal{G}'$.
 
 Napríklad nasledovnej matici návrhu experimentu
@@ -917,7 +918,7 @@ Ekvivalentne, každý bipartitný graf reprezentuje binárnu maticu, a teda aj e
 Naše tvrdenia a hypotézy z predošlých podkapitol možno vďaka tejto reprezentácii prepísať do jazyka teórie grafov.
 
 \begin{prop}
-Nech $\mathcal{G}$ je bipartitný graf s partíciami veľkosti $m$ a $n$. 
+Nech $\mathcal{G}$ je bipartitný graf s partíciami veľkostí $m$ a $n$. 
 Potom hodnota $h^T b$ v lineárnom modeli reprezentovanom týmto grafom je odhadnuteľná práve vtedy,
 keď v oboch partíciách existuje aspoň jeden taký vrchol, ktorý ani v $\mathcal{G}$ ani v $\mathcal{G}'$ nie je izolovaným bodom.
 \end{prop}
@@ -934,10 +935,10 @@ Bipartitný graf $\mathcal{G}$ nazývame optimálnym, ak matica návrhu experime
 \end{defin}
 
 \begin{hypoteza}
-Nech $\mathcal{G}$ je bipartitný graf s partíciami veľkosti $2k$ a $2k$.
+Nech $\mathcal{G}$ je bipartitný graf s partíciami veľkostí $2k$ a $2k$.
 Potom $\mathcal{G}$ je optimálny práve vtedy, keď $\mathcal{G}$ je $k$-regulárny.
 
-Nech $\mathcal{G}$ je bipartitný graf s partíciami veľkosti $2k + 1$ a $2k + 1$.
+Nech $\mathcal{G}$ je bipartitný graf s partíciami veľkostí $2k + 1$ a $2k + 1$.
 Potom $\mathcal{G}$ je optimálny práve vtedy, keď $\mathcal{G}$ je $k$-regulárny alebo $(k + 1)$-regulárny.
 \end{hypoteza}
 
